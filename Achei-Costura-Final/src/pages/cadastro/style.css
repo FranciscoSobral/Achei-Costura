@@ -100,3 +100,9 @@
 .links-auxiliares-cadastro a:hover {
   text-decoration: underline;
 }
+
+.btn-link-wrapper {
+  text-decoration: none;
+  display: block; /* Garante que o link ocupe a largura toda */
+  margin-top: 10px;
+}

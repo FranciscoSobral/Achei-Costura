@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
 
 function CadastroPage() {
   const [tipoDeCadastro, setTipoDeCadastro] = useState('profissional');
+  const navigate = useNavigate();
+
+  const irParaEtapa2 = (evento) => {
+    evento.preventDefault(); 
+    navigate('/cadastrostep2'); 
+  };
 
   return (
     <div className="cadastro-container">
-      <form className="cadastro-form">
+      <form className="cadastro-form" onSubmit={irParaEtapa2}>
         <h1>Crie sua Conta</h1>
         
         <div className="form-group tipo-cadastro-container">
@@ -65,7 +71,7 @@ function CadastroPage() {
           <input type="password" id="senha" name="senha" required />
         </div>
 
-        <button type="submit" className="btn-cadastrar">Cadastrar</button>
+        <button type="submit" className="btn-cadastrar">Avançar</button>
 
         <div className="links-auxiliares-cadastro">
             <span>Já possui uma conta? </span>

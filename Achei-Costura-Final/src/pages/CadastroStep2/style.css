@@ -1,0 +1,52 @@
+.cadastro-step2-container .form-group {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.cadastro-step2-container .form-group > label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* A REGRA MAIS IMPORTANTE ESTÁ AQUI */
+.radio-option {
+  display: flex;         /* Coloca o círculo e o texto lado a lado */
+  align-items: center;   /* Alinha-os verticalmente no centro */
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  cursor: pointer;
+}
+
+.radio-option:hover {
+  border-color: var(--cor-principal);
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 15px;
+  width: 18px;
+  height: 18px;
+}
+
+.radio-option label {
+  margin: 0;
+  font-weight: 500;
+  color: #333;
+}
+
+.btn-cadastrar{
+  width: 200px;
+  max-width: 200px;
+  display: block;
+  margin: 20px auto 0;
+}

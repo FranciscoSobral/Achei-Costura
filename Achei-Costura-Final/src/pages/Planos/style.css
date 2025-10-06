@@ -1,0 +1,101 @@
+.planos-container {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.planos-titulo {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--cor-principal);
+  margin-bottom: 40px;
+}
+
+.planos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.plano-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.plano-card.popular {
+  border-color: var(--cor-principal);
+  border-width: 2px;
+}
+
+.tag-popular {
+  position: absolute;
+  top: 15px;
+  right: -45px;
+  background-color: var(--cor-detalhe);
+  color: white;
+  padding: 5px 40px;
+  transform: rotate(45deg);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.plano-card h2 {
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: var(--cor-principal);
+}
+
+.plano-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* Empurra o botão para baixo */
+}
+
+.plano-card li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.check-icon {
+  color: var(--cor-detalhe);
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.plano-card li.indisponivel {
+  color: #aaa;
+}
+
+.plano-card li.indisponivel .check-icon {
+  color: #ccc;
+}
+
+.btn-assinar {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--cor-principal);
+  color: var(--cor-branco);
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: opacity 0.2s;
+}
+
+.btn-assinar:hover {
+  opacity: 0.9;
+}

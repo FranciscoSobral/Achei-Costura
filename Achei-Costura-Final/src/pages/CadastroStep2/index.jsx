@@ -110,9 +110,6 @@ function CadastroStep2() {
         />
         <p className="dica">Dica: Para múltiplas respostas, separe-as por vírgula (,)</p>
       </div>
-
-      {/* --- BOTÃO DE CADASTRO ADICIONADO AQUI --- */}
-      <button type="submit" className="btn-cadastrar">Cadastrar</button>
     </div>
   );
 }

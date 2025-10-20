@@ -4,116 +4,83 @@ import SpeechButton from '../../components/SpeechButton';
 import './style.css';
 
 function CadastroStep2Page() {
-  const [formData, setFormData] = useState({
-    tempoExperiencia: '',
-    numCostureiros: '',
-    disponibilidade: '',
-    especialidade: '',
-    maquinas: ''
-  });
+  const [endereco, setEndereco] = useState('');
+  const [cidade, setCidade] = useState('');
+  // Estado para guardar a pré-visualização da imagem
+  const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
 
-  // Uma única função para lidar com a mudança de qualquer campo do formulário
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  // Função para lidar com a seleção da foto
+  const handleFotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Cria uma URL temporária para a imagem selecionada para podermos exibi-la
+      setPreview(URL.createObjectURL(file));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Em um app real, aqui você enviaria todos os dados (passo 1 e 2) para a API
-    console.log('Dados completos do cadastro:', formData);
-    alert('Cadastro finalizado com sucesso!');
-    // Redireciona para a página de perfil recém-criada
-    navigate('/meu-perfil'); 
+    // Em um app real, você enviaria os dados (foto, endereço) para a API
+    console.log({ endereco, cidade, foto: preview });
+    alert('Endereço e foto salvos! Vamos para a última etapa.');
+    // Redireciona para o passo 3
+    navigate('/cadastrostep3');
   };
 
-  // Textos para os botões de áudio
-  const textos = {
-    exp: "Há quanto tempo você trabalha com costura?",
-    equipe: "Quantos costureiros trabalham com você?",
-    disp: "Qual seu nível de disponibilidade para produção?",
-    esp: "Sua especialidade",
-    maq: "Suas Máquinas"
-  };
-
-  // Opções para os botões de rádio
-  const opcoesExp = ["De 0 a 2 anos", "De 2 a 5 anos", "De 5 a 10 anos", "Mais de 10 anos"];
-  const opcoesEquipe = ["Trabalho sozinho(a)", "2 costureiros", "De 3 a 5 costureiros", "De 6 a 10 costureiros", "10 ou mais costureiros"];
-  const opcoesDisp = ["Geral (Manhã e Tarde)", "Manhã", "Tarde", "Apenas Finais de semana"];
+  const textoTitulo = "Complete seu Perfil";
+  const textoFoto = "Sua foto de perfil";
+  const textoEndereco = "Seu Endereço";
+  const textoCidade = "Sua Cidade";
 
   return (
     <div className="step2-container">
       <form className="step2-card" onSubmit={handleSubmit}>
-        
-        {/* Pergunta 1: Tempo de Experiência */}
+        <div className="form-header">
+          <h2>{textoTitulo}</h2>
+          <SpeechButton textToSpeak={textoTitulo} />
+        </div>
+
+        {/* Seção da Foto de Perfil */}
         <div className="form-group">
           <div className="form-label-container">
-            <h3>{textos.exp}</h3>
-            <SpeechButton textToSpeak={textos.exp} />
+            <label>{textoFoto}</label>
+            <SpeechButton textToSpeak={textoFoto} />
           </div>
-          <div className="radio-group">
-            {opcoesExp.map(opcao => (
-              <label key={opcao}>
-                <input type="radio" name="tempoExperiencia" value={opcao} onChange={handleChange} checked={formData.tempoExperiencia === opcao} />
-                {opcao}
-              </label>
-            ))}
+          <div className="foto-upload-container">
+            <img 
+              src={preview || 'https://via.placeholder.com/150'} 
+              alt="Pré-visualização do perfil" 
+              className="foto-preview"
+            />
+            <input 
+              type="file" 
+              id="foto" 
+              accept="image/*" // Aceita apenas arquivos de imagem
+              onChange={handleFotoChange} 
+            />
+            <label htmlFor="foto" className="btn-upload-foto">Escolher Foto</label>
           </div>
         </div>
 
-        {/* Pergunta 2: Tamanho da Equipe */}
+        {/* Seção do Endereço */}
         <div className="form-group">
           <div className="form-label-container">
-            <h3>{textos.equipe}</h3>
-            <SpeechButton textToSpeak={textos.equipe} />
+            <label htmlFor="cidade">{textoCidade}</label>
+            <SpeechButton textToSpeak={textoCidade} />
           </div>
-          <div className="radio-group">
-            {opcoesEquipe.map(opcao => (
-              <label key={opcao}>
-                <input type="radio" name="numCostureiros" value={opcao} onChange={handleChange} checked={formData.numCostureiros === opcao} />
-                {opcao}
-              </label>
-            ))}
-          </div>
+          <input type="text" id="cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} required />
         </div>
 
-        {/* Pergunta 3: Disponibilidade */}
         <div className="form-group">
           <div className="form-label-container">
-            <h3>{textos.disp}</h3>
-            <SpeechButton textToSpeak={textos.disp} />
+            <label htmlFor="endereco">{textoEndereco}</label>
+            <SpeechButton textToSpeak={textoEndereco} />
           </div>
-          <div className="radio-group">
-            {opcoesDisp.map(opcao => (
-              <label key={opcao}>
-                <input type="radio" name="disponibilidade" value={opcao} onChange={handleChange} checked={formData.disponibilidade === opcao} />
-                {opcao}
-              </label>
-            ))}
-          </div>
+          <input type="text" id="endereco" value={endereco} onChange={(e) => setEndereco(e.target.value)} required />
         </div>
 
-        {/* Pergunta 4: Especialidade */}
-        <div className="form-group">
-          <div className="form-label-container">
-            <label htmlFor="especialidade">{textos.esp}</label>
-            <SpeechButton textToSpeak={textos.esp} />
-          </div>
-          <input type="text" id="especialidade" name="especialidade" value={formData.especialidade} onChange={handleChange} placeholder="Ex.: Malhas, modinha, bonés, etc." />
-        </div>
-
-        {/* Pergunta 5: Máquinas */}
-        <div className="form-group">
-          <div className="form-label-container">
-            <label htmlFor="maquinas">{textos.maq}</label>
-            <SpeechButton textToSpeak={textos.maq} />
-          </div>
-          <input type="text" id="maquinas" name="maquinas" value={formData.maquinas} onChange={handleChange} placeholder="Ex.: Reta, Overloque, ponto conjugado, etc." />
-        </div>
-
-        <button type="submit" className="btn-finalizar">Finalizar Cadastro</button>
-
+        <button type="submit" className="btn-avancar">Avançar</button>
       </form>
     </div>
   );

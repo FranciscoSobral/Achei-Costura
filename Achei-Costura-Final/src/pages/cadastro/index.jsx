@@ -4,11 +4,13 @@ import SpeechButton from '../../components/SpeechButton';
 import './style.css';
 
 function CadastroPage() {
-  const [userType, setUserType] = useState('Profissional');
+  // REMOVIDO: O estado 'userType' não é mais necessário.
+  // const [userType, setUserType] = useState('Profissional');
+
   const [formData, setFormData] = useState({
     nome: '',
     sobrenome: '',
-    nomeEmpresa: '',
+    // REMOVIDO: 'nomeEmpresa' não é mais necessário.
     telefone: '',
     email: '',
     senha: ''
@@ -20,33 +22,20 @@ function CadastroPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleUserTypeChange = (type) => {
-    setUserType(type);
-    setFormData(prev => ({ 
-      ...prev, 
-      nome: '', 
-      sobrenome: '',
-      nomeEmpresa: '' 
-    }));
-  };
+  // REMOVIDO: A função 'handleUserTypeChange' não é mais necessária.
 
-  // ======================================================
-  // AQUI ESTÁ A ÚNICA MUDANÇA NECESSÁRIA
-  // ======================================================
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ userType, ...formData });
+    // A lógica de envio agora é mais simples.
+    console.log({ userType: 'Profissional', ...formData });
     alert('Primeira etapa concluída! Redirecionando para a próxima etapa...');
-    
-    // O destino do 'navigate' foi corrigido para levar à etapa 2
     navigate('/cadastrostep2'); 
   };
   
   const textoTitulo = "Crie sua Conta";
-  const textoVoceE = "Você é:";
+  // Textos desnecessários foram removidos.
   const textoNome = "Nome";
   const textoSobrenome = "Sobrenome";
-  const textoNomeEmpresa = "Nome da Empresa";
   const textoTelefone = "Número de telefone";
   const textoEmail = "Email";
   const textoSenha = "Senha";
@@ -59,59 +48,26 @@ function CadastroPage() {
           <SpeechButton textToSpeak={textoTitulo} />
         </div>
 
+        {/* REMOVIDO: O seletor 'Você é:' (Profissional/Empresa) foi retirado. */}
+
+        {/* Os campos de Nome e Sobrenome agora aparecem diretamente. */}
         <div className="form-group">
           <div className="form-label-container">
-            <label>{textoVoceE}</label>
-            <SpeechButton textToSpeak={textoVoceE} />
+            <label htmlFor="nome">{textoNome}</label>
+            <SpeechButton textToSpeak={textoNome} />
           </div>
-          <div className="user-type-toggle">
-            <button
-              type="button"
-              className={userType === 'Profissional' ? 'active' : ''}
-              onClick={() => handleUserTypeChange('Profissional')}
-            >
-              Profissional
-            </button>
-            <button
-              type="button"
-              className={userType === 'Empresa' ? 'active' : ''}
-              onClick={() => handleUserTypeChange('Empresa')}
-            >
-              Empresa
-            </button>
-          </div>
+          <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
         </div>
 
-        {userType === 'Profissional' && (
-          <>
-            <div className="form-group">
-              <div className="form-label-container">
-                <label htmlFor="nome">{textoNome}</label>
-                <SpeechButton textToSpeak={textoNome} />
-              </div>
-              <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
-            </div>
-
-            <div className="form-group">
-              <div className="form-label-container">
-                <label htmlFor="sobrenome">{textoSobrenome}</label>
-                <SpeechButton textToSpeak={textoSobrenome} />
-              </div>
-              <input type="text" id="sobrenome" name="sobrenome" value={formData.sobrenome} onChange={handleChange} required />
-            </div>
-          </>
-        )}
-
-        {userType === 'Empresa' && (
-          <div className="form-group">
-            <div className="form-label-container">
-              <label htmlFor="nomeEmpresa">{textoNomeEmpresa}</label>
-              <SpeechButton textToSpeak={textoNomeEmpresa} />
-            </div>
-            <input type="text" id="nomeEmpresa" name="nomeEmpresa" value={formData.nomeEmpresa} onChange={handleChange} required />
+        <div className="form-group">
+          <div className="form-label-container">
+            <label htmlFor="sobrenome">{textoSobrenome}</label>
+            <SpeechButton textToSpeak={textoSobrenome} />
           </div>
-        )}
+          <input type="text" id="sobrenome" name="sobrenome" value={formData.sobrenome} onChange={handleChange} required />
+        </div>
 
+        {/* O resto do formulário continua igual. */}
         <div className="form-group">
           <div className="form-label-container">
             <label htmlFor="telefone">{textoTelefone}</label>

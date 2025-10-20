@@ -1,18 +1,19 @@
-/* src/components/Card/style.css */
-
 .card-empresa {
-  border: 1px solid #e0e0e0;
+  background-color: white;
   border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  transition: transform 0.2s ease-in-out;
+  text-align: center;
   display: flex;
   flex-direction: column;
+  /* Transição suave para os efeitos de hover */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Efeito de "levantar" ao passar o mouse */
 .card-empresa:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
 .card-empresa img {
@@ -22,42 +23,38 @@
 }
 
 .card-info {
-  padding: 16px;
-  flex-grow: 1;
+  padding: 20px;
   display: flex;
   flex-direction: column;
+  flex-grow: 1; /* Faz esta área crescer para ocupar o espaço */
 }
 
+/* Melhorando a tipografia (hierarquia visual) */
 .card-info h3 {
-  margin-top: 0;
-  margin-bottom: 8px;
-  font-size: 1.25rem;
-  color: #333;
+  font-size: 1.3em;
+  color: #222;
+  margin: 0 0 8px 0;
 }
 
-.card-info p {
-  margin: 0 0 16px;
-  color: #666;
-}
-
-.card-info span {
-  margin-bottom: 16px;
-  color: #888;
-  font-size: 0.9rem;
+.card-info p, .card-info span {
+  font-size: 0.9em;
+  color: #777;
+  margin: 0 0 15px 0;
+  flex-grow: 1; /* Empurra o botão para baixo */
 }
 
 .card-info button {
-  margin-top: auto;
-  padding: 10px 16px;
+  background-color: #ff9900; /* Laranja/mostarda do seu design */
+  color: white;
   border: none;
-  background-color: var(--cor-botao-laranja);
-  color: var(--cor-branco);
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px 20px;
   font-weight: bold;
-  transition: background-color 0.2s;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
 }
 
 .card-info button:hover {
-  background-color: #e67e00;
+  background-color: #e68a00;
 }

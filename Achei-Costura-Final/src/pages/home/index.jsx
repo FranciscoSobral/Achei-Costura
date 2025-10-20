@@ -1,57 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { getAllItems } from '../../data/api'; // Usando a função que pega tudo de uma vez
+import { getCostureiros } from '../../data/api'; // Importa APENAS a função de costureiros
 import GridDeItens from '../../components/GridDeItens';
 import Filtros from '../../components/Filtros';
 import AnuncioCarrossel from '../../components/AnuncioCarrossel';
 import './style.css'; 
 
 function HomePage() {
-  const [allItems, setAllItems] = useState([]);
+  const [allCostureiros, setAllCostureiros] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
-  
-  // Estados de controle para os filtros
-  const [activeTab, setActiveTab] = useState('Geral');
   const [selectedCity, setSelectedCity] = useState('');
 
-  // 1. Busca os dados uma vez
+  // Busca apenas os dados dos costureiros
   useEffect(() => {
-    setAllItems(getAllItems());
+    const costureiros = getCostureiros();
+    setAllCostureiros(costureiros);
+    setFilteredItems(costureiros); // Define os itens iniciais
   }, []);
 
-  // 2. Filtra a lista sempre que um dos filtros mudar
+  // Filtra a lista de costureiros apenas pela cidade
   useEffect(() => {
-    let itemsToFilter = allItems;
+    let itemsToFilter = allCostureiros;
 
-    // Filtra por TIPO (Geral, Costureiros, Empresas)
-    if (activeTab === 'Empresas') {
-      itemsToFilter = allItems.filter(item => item.tipo === 'empresas');
-    } else if (activeTab === 'Costureiros') {
-      itemsToFilter = allItems.filter(item => item.tipo === 'costureiros');
-    }
-
-    // Pega o resultado do filtro anterior e filtra por CIDADE
     if (selectedCity) {
-      itemsToFilter = itemsToFilter.filter(item => item.cidade === selectedCity);
+      itemsToFilter = allCostureiros.filter(item => item.cidade === selectedCity);
     }
 
     setFilteredItems(itemsToFilter);
     
-  }, [activeTab, selectedCity, allItems]); // Roda o filtro se qualquer um destes mudar
+  }, [selectedCity, allCostureiros]);
 
   return (
     <div className="home-container">
-      {/* O Carrossel continua no topo */}
-      <AnuncioCarrossel items={allItems} />
+      {/* O Carrossel mostrará apenas costureiros */}
+      <AnuncioCarrossel items={allCostureiros} />
 
-      {/* A HomePage agora renderiza UM SÓ componente de Filtros */}
+      {/* Renderiza o componente de Filtros simplificado */}
       <Filtros
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
         selectedCity={selectedCity}
         setSelectedCity={setSelectedCity}
       />
 
-      {/* E o grid exibe os itens já filtrados */}
+      {/* O Grid exibe os costureiros filtrados */}
       <GridDeItens itens={filteredItems} />
     </div>
   );

@@ -1,16 +1,19 @@
+// src/pages/CadastroStep3/index.jsx - CÓDIGO CORRIGIDO
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SpeechButton from '../../components/SpeechButton';
 import './style.css';
 
 // Renomeado para CadastroStep3Page
-function CadastroStep3Page() { 
+function CadastroStep3Page() {
   const [formData, setFormData] = useState({
     tempoExperiencia: '',
     numCostureiros: '',
     disponibilidade: '',
     especialidade: '',
-    maquinas: ''
+    maquinas: '',
+    faccoes: '' // <-- CORREÇÃO 1: Adicionado o campo que faltava
   });
   const navigate = useNavigate();
 
@@ -24,7 +27,7 @@ function CadastroStep3Page() {
     console.log('Dados completos do cadastro (Etapa 3):', formData);
     alert('Cadastro finalizado com sucesso!');
     // Redireciona para a página de perfil ao final de tudo
-    navigate('/meu-perfil'); 
+    navigate('/meu-perfil');
   };
 
   const textos = {
@@ -32,7 +35,8 @@ function CadastroStep3Page() {
     equipe: "Quantos costureiros trabalham com você?",
     disp: "Qual seu nível de disponibilidade para produção?",
     esp: "Sua especialidade",
-    maq: "Suas Máquinas"
+    maq: "Suas Máquinas",
+    fac: "Sua Facção" // <-- CORREÇÃO 2: Adicionado o texto "Sua Facção"
   };
 
   const opcoesExp = ["De 0 a 2 anos", "De 2 a 5 anos", "De 5 a 10 anos", "Mais de 10 anos"];
@@ -42,7 +46,7 @@ function CadastroStep3Page() {
   return (
     <div className="step2-container"> {/* Pode renomear esta classe para step3-container se quiser */}
       <form className="step2-card" onSubmit={handleSubmit}> {/* Pode renomear esta classe para step3-card se quiser */}
-        
+
         {/* Pergunta 1: Tempo de Experiência */}
         <div className="form-group">
           <div className="form-label-container">
@@ -109,6 +113,25 @@ function CadastroStep3Page() {
           <input type="text" id="maquinas" name="maquinas" value={formData.maquinas} onChange={handleChange} placeholder="Ex.: Reta, Overloque, ponto conjugado, etc." />
         </div>
 
+        {/* --- INÍCIO DA CORREÇÃO 3 --- */}
+        {/* Pergunta 6: Facções */}
+        <div className="form-group">
+          <div className="form-label-container">
+            {/* O 'htmlFor' deve ser 'faccoes' (minúsculo) para ligar ao 'id' do input */}
+            <label htmlFor="faccoes">{textos.fac}</label>
+            <SpeechButton textToSpeak={textos.fac} />
+          </div>
+          <input 
+            type="text" 
+            id="faccoes"       // Corrigido de "Facções"
+            name="faccoes"     // Corrigido de "Facções"
+            value={formData.faccoes} // Corrigido de "formData.maquinas"
+            onChange={handleChange} 
+            placeholder="Ex.: Lavanderia, Malharia, Corte e Costura, etc." 
+          />
+        </div>
+        {/* --- FIM DA CORREÇÃO 3 --- */}
+
         <button type="submit" className="btn-finalizar">Finalizar Cadastro</button>
 
       </form>
@@ -117,4 +140,4 @@ function CadastroStep3Page() {
 }
 
 // Renomeado no export default
-export default CadastroStep3Page;
+export default CadastroStep3Page; 

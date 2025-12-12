@@ -32,6 +32,7 @@
   text-decoration: none;
   margin: 0 15px;
   font-weight: 500;
+  
 }
 .header-actions {
   display: flex;
@@ -51,7 +52,7 @@
   color: white;
 }
 .search-bar input::placeholder {
-  color: #eee;
+  color: #888;
 }
 
 .logo-imagem {
@@ -117,6 +118,46 @@
   color: #f0c419;
 }
 
+/* A CAIXA "FALSA" QUE PARECE O INPUT */
+.search-bar {
+  display: flex;
+  align-items: center; /* Alinha ícone e texto verticalmente */
+  background-color: #f5f5f5; /* Cinza clarinho */
+  border: 1px solid #ddd;
+  border-radius: 20px; /* Bordas arredondadas */
+  padding: 5px 15px;
+  width: 220px;
+  transition: border 0.3s;
+}
+
+/* Efeito ao clicar na busca */
+.search-bar:focus-within {
+  border-color: #006D5B; /* Verde do seu tema */
+  background-color: #fff;
+}
+
+/* O INPUT REAL (Transparente e sem bordas) */
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none; /* Remove o contorno padrão do navegador */
+  flex-grow: 1; /* Ocupa todo o espaço sobrando */
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* O ÍCONE (Lupa) */
+.search-icon {
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 8px; /* Espacinho entre o texto e a lupa */
+}
+
+.search-icon:hover {
+  color: #006D5B; /* Fica verde ao passar o mouse */
+}
+
 @media (max-width: 768px) {
   .coin-label {
     display: none;
@@ -125,3 +166,4 @@
     padding: 5px 10px;
   }
 }
+

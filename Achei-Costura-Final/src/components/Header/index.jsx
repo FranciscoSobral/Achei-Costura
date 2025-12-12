@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react'; // Adicionei useState para o menu mobile se precisar
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext'; // 1. Importar o contexto
+import { useAuth } from '../../context/AuthContext';
+import { Search } from 'react-bootstrap-icons'; // 1. Importar o ícone de Lupa
 import './style.css';
 import logoAcheiCostura from '../../assets/logo.png';
-import coinsImg from '../../assets/coins.png'; // 2. Importar a imagem da moeda
+import coinsImg from '../../assets/coins.png';
 
 function Header() {
-  // 3. Pegar o estado de login e os dados do user
   const { isLoggedIn, user } = useAuth();
+  // Se você tiver a lógica do menu mobile (hambúrguer) de antes, mantenha aqui.
+  // Vou focar apenas na barra de pesquisa conforme solicitado.
 
   return (
     <header className="main-header">
@@ -25,13 +27,16 @@ function Header() {
           <Link to="/contato">Contato</Link>
           <Link to="/sobre-nos">Sobre nós</Link>
         </nav>
-
+        
         <div className="header-actions">
+          
+          {/* 2. MUDANÇA AQUI: Ícone dentro da div */}
           <div className="search-bar">
-            <input type="text" placeholder="Search" />
+            <input type="text" placeholder="Buscar..." />
+            <Search className="search-icon" /> 
           </div>
 
-          {/* 4. LÓGICA: Se estiver logado, mostra as moedas */}
+          {/* LÓGICA: Se estiver logado, mostra as moedas */}
           {isLoggedIn && user && (
             <div className="coin-balance-card">
               <span className="coin-count">{user.coins}</span>
@@ -39,7 +44,6 @@ function Header() {
             </div>
           )}
 
-          {/* Altera o botão de Login para "Sair" ou "Perfil" se estiver logado (opcional) */}
           <Link to={isLoggedIn ? "/meu-perfil" : "/login"} className="login-btn">
             {isLoggedIn ? "Meu Perfil" : "Login"}
           </Link>

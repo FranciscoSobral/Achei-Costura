@@ -1,103 +1,178 @@
 .contato-container {
-  width: 100%;
-  background-color: #f8f9fa; /* ADICIONADO: Fundo padrão */
-  padding: 40px 0;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* REMOVIDO: A faixa verde do topo não é mais necessária */
-/*
-.hero-contato { ... }
-.hero-contato h1 { ... }
-*/
-
-/* ADICIONADO: Estilo padrão para o título (o mesmo do Sobre Nós) */
-.titulo-pagina {
+.contato-header {
   text-align: center;
-  color: #008080;
-  font-size: 2.8em;
-  font-weight: bold;
   margin-bottom: 40px;
 }
+.contato-header h1 {
+  font-size: 2.5rem;
+  color: #333; 
+  margin-bottom: 10px;
+}
 
-/* ALTERADO: O conteúdo agora é um cartão branco com sombra */
-.conteudo-contato {
-  max-width: 800px;
-  margin: 0 auto 40px auto;
+.contato-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.contato-content {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.info-box {
+  background-color: #006D5B; 
+  color: white;
   padding: 40px;
-  background-color: #ffffff; /* Fundo branco */
-  border: none; /* Borda antiga removida */
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  color: #333;
-}
-
-.conteudo-contato p {
-  font-size: 1.1em;
-  line-height: 1.6;
-  margin-top: 0;
-  margin-bottom: 20px;
-}
-
-/* Estilos do formulário (mantidos) */
-.form-contato {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.info-box h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.info-desc {
+  font-size: 0.95rem;
+  color: #e0f2f1; 
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.info-item .icon {
+  font-size: 1.3rem;
+  color: #ffffff; 
+  margin-right: 15px;
+  opacity: 0.9;
+}
+
+.social-media {
+  margin-top: auto;
+  padding-top: 30px;
+}
+
+.social-media p {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  color: #e0f2f1;
+}
+
+.social-icons {
+  display: flex;
   gap: 15px;
 }
 
-.form-contato label {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #006D5B;
-  margin-bottom: -5px;
+.social-link {
+  color: white;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  opacity: 0.8;
 }
 
-.form-contato select,
-.form-contato textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1em;
+.social-link:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  color: #a7f3d0; 
+}
+
+.contact-form {
+  padding: 40px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
   font-family: inherit;
 }
 
-.form-contato textarea {
-  resize: vertical;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #006D5B; 
+  background-color: white;
+  box-shadow: 0 0 0 4px rgba(0, 109, 91, 0.1); 
 }
 
-.form-contato .btn-enviar {
-  background-color: #006D5B;
+.btn-enviar {
+  width: 100%;
+  padding: 14px;
+  background-color: #00b093; 
   color: white;
-  padding: 12px 20px;
   border: none;
-  border-radius: 5px;
-  font-size: 1.1em;
-  font-weight: bold;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s;
-  align-self: flex-start;
 }
 
-.form-contato .btn-enviar:hover {
-  background-color: #006D5B;
+.btn-enviar:hover {
+  background-color: #006D5B; 
 }
 
-.readable-section {
-  display: flex;
-  align-items: flex-start; /* Alinha os itens pelo topo, que fica melhor com texto de múltiplas linhas */
-  gap: 15px;
-  margin-bottom: 20px;
-}
+@media (max-width: 768px) {
+  .contato-content {
+    grid-template-columns: 1fr;
+  }
 
-.readable-section p {
-  margin: 0;
-  flex: 1; /* Permite que o parágrafo cresça e quebre a linha, sem empurrar o botão */
-}
+  .info-box {
+    padding: 30px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .info-item .icon {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
 
-/* NOVO: Estilo para alinhar o botão ao lado dos labels do formulário */
-.form-label-container {
-  display: flex;
-  justify-content: space-between; /* Joga o botão para a direita */
-  align-items: center;
+  .social-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

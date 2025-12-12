@@ -1,162 +1,151 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaCheck, FaStar, FaCoins } from 'react-icons/fa'; // Ícones
 import SpeechButton from '../../components/SpeechButton';
+import coinsImg from '../../assets/coins.png'; // Imagem das coins
 import './style.css';
 
-// IMPORTANTE: Importe a imagem da moeda aqui
-import coinsImg from '../../assets/coins.png';
-
-const BeneficioItem = ({ texto, disponivel = true }) => (
-  <li className={disponivel ? 'disponivel' : 'indisponivel'}>
-    <span className="check-icon">{disponivel ? '✔' : '✖'}</span>
-    <span>{texto}</span>
-  </li>
-);
-
-function PlanosPage() {
-  // ... (Seus textos de planos anteriores mantêm-se iguais) ...
-  const textoPlanoMensal = `
-    Plano Mensal. 
-    Benefícios: Desbloqueie todos os contatos por 1 mês. 
-    Navegação sem anúncios de terceiros, item indisponível. 
-    Ideal para projetos rápidos e imediatos.
-  `;
-  const textoPlanoTrimestral = `
-    Plano Trimestral, o mais popular.
-    Benefícios: Desbloqueie todos os contatos por 3 meses. 
-    Navegação sem anúncios de terceiros. 
-    Suporte prioritário. 
-    Ótimo custo-benefício para projetos recorrentes.
-  `;
-  const textoPlanoSemestral = `
-    Plano Semestral.
-    Benefícios: Desbloqueie todos os contatos por 6 meses.
-    Navegação sem anúncios de terceiros.
-    Suporte prioritário.
-    Máxima economia com o melhor valor a longo prazo.
-  `;
-  const textoPlanoAnualNovo = `
-    Plano Anual.
-    Benefícios: Acesso anual.
-    Desbloqueie todos os contatos durante 1 ano inteiro.
-    Suporte Premium e acesso antecipado a novidades.
-    Navegação sem anúncios de terceiros.
-  `;
-
-  // NOVO: Texto para o botão de áudio dos Coins
-  const textoCoins = `
-    Comprar Coins.
-    Sistema pré-pago avulso.
-    Compre moedas para desbloquear facções individualmente.
-    Uma moeda equivale a um desbloqueio.
-    Sem mensalidade ou fidelidade.
-  `;
+const PlanosPage = () => {
+  
+  // --- Textos para o Áudio ---
+  const textoPlanoMensal = "Plano Mensal. Benefícios: Desbloqueie todos os contatos por 1 mês. Navegação sem anúncios de terceiros, item indisponível. Ideal para projetos rápidos e imediatos.";
+  const textoPlanoTrimestral = "Plano Trimestral, o mais popular. Benefícios: Desbloqueie todos os contatos por 3 meses. Navegação sem anúncios de terceiros. Suporte prioritário. Ótimo custo-benefício para projetos recorrentes.";
+  const textoPlanoSemestral = "Plano Semestral. Benefícios: Desbloqueie todos os contatos por 6 meses. Navegação sem anúncios de terceiros. Suporte prioritário. Máxima economia com o melhor valor a longo prazo.";
+  const textoPlanoAnual = "Plano Anual. Benefícios: Acesso anual. Desbloqueie todos os contatos durante 1 ano inteiro. Suporte Premium e acesso antecipado a novidades. Navegação sem anúncios de terceiros.";
+  const textoCoins = "Comprar AC Coins. Compre moedas para desbloquear facções individualmente. Uma moeda equivale a um desbloqueio. Sem mensalidade ou fidelidade.";
+  
+  // NOVO: Texto do Carrossel
+  const textoCarrossel = "Anúncio. Destaque Máximo. Sua marca ou perfil aparece no topo da página inicial com alta visibilidade. Ideal para promover lançamentos ou vagas urgentes. Foto Gigante na Home. 7 dias de Destaque. Alta Visibilidade.";
 
   return (
     <div className="planos-container">
-      <h1 className="planos-titulo">Planos de Assinatura</h1>
+      
+      <div className="planos-header">
+        <h1 className="titulo-principal">Nossos Planos</h1>
+        <p className="subtitulo">Escolha a melhor opção para o seu negócio</p>
+      </div>
+
       <div className="planos-grid">
-
-        {/* ... (Os seus 4 cards de Planos Anteriores ficam AQUI sem alterações) ... */}
         
-        {/* Card do Plano Mensal */}
+        {/* 1. MENSAL */}
         <div className="plano-card">
-          <span className="plano-tag flexivel">FLEXÍVEL</span>
-          <div className="card-header">
-            <h2>Mensal</h2>
-            <SpeechButton textToSpeak={textoPlanoMensal} />
+          <div className="card-top-actions">
+             <SpeechButton textToSpeak={textoPlanoMensal} />
           </div>
-          <ul>
-            <BeneficioItem texto="Desbloqueie todos os contatos por 1 mês" />
-            <BeneficioItem texto="Navegação sem anúncios de terceiros" disponivel={false} />
-            <BeneficioItem texto="Ideal para projetos rápidos e imediatos" />
+          <div className="plano-nome">Mensal</div>
+          <p className="plano-desc">Ideal para projetos rápidos.</p>
+          <hr />
+          <ul className="lista-beneficios">
+            <li><FaCheck className="icon-check" /> Acesso total por 1 mês</li>
+            <li><FaCheck className="icon-check" /> Contatos liberados</li>
+            <li className="inativo">Sem anúncios</li>
           </ul>
-          <Link to="/pagamento">
-            <button className="btn-assinar">Assinar Agora</button>
+          <Link to="/pagamento?plano=mensal" className="btn-plano btn-outline">
+            Assinar Agora
           </Link>
         </div>
 
-        {/* Card do Plano Trimestral */}
-        <div className="plano-card popular">
-          <span className="plano-tag popular">MAIS POPULAR</span>
-          <div className="card-header">
-            <h2>Trimestral</h2>
-            <SpeechButton textToSpeak={textoPlanoTrimestral} />
+        {/* 2. TRIMESTRAL (DESTAQUE) */}
+        <div className="plano-card destaque">
+          <div className="badge-recomendado"><FaStar /> Mais Popular</div>
+          <div className="card-top-actions">
+             <SpeechButton textToSpeak={textoPlanoTrimestral} />
           </div>
-          <ul>
-            <BeneficioItem texto="Desbloqueie todos os contatos por 3 meses" />
-            <BeneficioItem texto="Navegação sem anúncios de terceiros" />
-            <BeneficioItem texto="Suporte prioritário" />
-            <BeneficioItem texto="Ótimo custo-benefício para projetos recorrentes" />
+          <div className="plano-nome">Trimestral</div>
+          <p className="plano-desc">Ótimo custo-benefício.</p>
+          <hr />
+          <ul className="lista-beneficios">
+            <li><FaCheck className="icon-check" /> Acesso por 3 meses</li>
+            <li><FaCheck className="icon-check" /> <strong>Sem anúncios</strong></li>
+            <li><FaCheck className="icon-check" /> Suporte Prioritário</li>
           </ul>
-          <Link to="/pagamento">
-            <button className="btn-assinar">Assinar Agora</button>
+          <Link to="/pagamento?plano=trimestral" className="btn-plano btn-cheio">
+            Assinar Agora
           </Link>
         </div>
 
-        {/* Card do Plano Semestral */}
+        {/* 3. SEMESTRAL */}
         <div className="plano-card">
-          <span className="plano-tag economia">ECONOMIA</span>
-          <div className="card-header">
-            <h2>Semestral</h2>
-            <SpeechButton textToSpeak={textoPlanoSemestral} />
+          <div className="card-top-actions">
+             <SpeechButton textToSpeak={textoPlanoSemestral} />
           </div>
-          <ul>
-            <BeneficioItem texto="Desbloqueie todos os contatos por 6 meses" />
-            <BeneficioItem texto="Navegação sem anúncios de terceiros" />
-            <BeneficioItem texto="Suporte prioritário" />
-            <BeneficioItem texto="Máxima economia com o melhor valor a longo prazo" />
+          <div className="plano-nome">Semestral</div>
+          <p className="plano-desc">Máxima economia.</p>
+          <hr />
+          <ul className="lista-beneficios">
+            <li><FaCheck className="icon-check" /> Acesso por 6 meses</li>
+            <li><FaCheck className="icon-check" /> Sem anúncios</li>
+            <li><FaCheck className="icon-check" /> Suporte Prioritário</li>
           </ul>
-          <Link to="/pagamento">
-            <button className="btn-assinar">Assinar Agora</button>
+          <Link to="/pagamento?plano=semestral" className="btn-plano btn-outline">
+            Assinar Agora
           </Link>
         </div>
 
-        {/* Card do Plano Anual */}
+        {/* 4. ANUAL */}
         <div className="plano-card">
-          <span className="plano-tag valor">MELHOR VALOR</span>
-          <div className="card-header">
-            <h2>Anual</h2>
-            <SpeechButton textToSpeak={textoPlanoAnualNovo} />
+          <div className="card-top-actions">
+             <SpeechButton textToSpeak={textoPlanoAnual} />
           </div>
-          <ul>
-            <BeneficioItem texto="Acesso anual" />
-            <BeneficioItem texto="Desbloqueie todos os contatos durante 1 ano inteiro" />
-            <BeneficioItem texto="Suporte Premium e acesso antecipado a novidades" />
-            <BeneficioItem texto="Navegação sem anúncios de terceiros" />
+          <div className="plano-nome">Anual</div>
+          <p className="plano-desc">Acesso completo o ano todo.</p>
+          <hr />
+          <ul className="lista-beneficios">
+            <li><FaCheck className="icon-check" /> 1 ano de acesso</li>
+            <li><FaCheck className="icon-check" /> Suporte Premium</li>
+            <li><FaCheck className="icon-check" /> Novidades antecipadas</li>
           </ul>
-          <Link to="/pagamento">
-            <button className="btn-assinar">Assinar Agora</button>
+          <Link to="/pagamento?plano=anual" className="btn-plano btn-outline">
+            Assinar Agora
           </Link>
         </div>
 
-        {/* === NOVO CARD: COMPRAR COINS === */}
-        <div className="plano-card card-coins">
-          <div className="card-header">
-            <h2>Comprar Coins</h2>
-            <SpeechButton textToSpeak={textoCoins} />
+        {/* 5. COINS (CARD ESPECIAL) */}
+        <div className="plano-card card-coins-style">
+          <div className="card-top-actions">
+             <SpeechButton textToSpeak={textoCoins} />
           </div>
+          <div className="plano-nome">AC COINS</div>
           
-          {/* Imagem da Moeda */}
-          <div className="coin-image-container">
-            <img src={coinsImg} alt="Moedas Achei Costura" className="coin-img" />
+          {/* Imagem das moedas */}
+          <div className="img-coins-wrapper">
+            <img src={coinsImg} alt="Moedas" />
           </div>
 
-          <ul>
-            <BeneficioItem texto="Pague apenas pelo que usar" />
-            <BeneficioItem texto="1 Moeda = 1 Facção desbloqueada" />
-            <BeneficioItem texto="Sem renovação automática" />
-            <BeneficioItem texto="Acumulativo: suas moedas nunca expiram" />
+          <p className="plano-desc">Pague apenas pelo que usar.</p>
+          <hr />
+          <ul className="lista-beneficios">
+            <li><FaCoins className="icon-check gold" /> 1 Moeda = 1 Desbloqueio</li>
+            <li><FaCheck className="icon-check" /> Sem mensalidade</li>
+            <li><FaCheck className="icon-check" /> As moedas não expiram</li>
           </ul>
-          
-          <Link to="/pagamento?tipo=coins">
-            <button className="btn-assinar btn-coins">Comprar Moedas</button>
+          <Link to="/pagamento?plano=coins" className="btn-plano btn-gold">
+            Comprar Moedas
+          </Link>
+        </div>
+
+        {/* 6. NOVO: ANÚNCIO CARROSSEL */}
+        <div className="plano-card">
+          <div className="badge-recomendado" style={{ backgroundColor: '#e74c3c' }}>🚀 Destaque Extra</div>
+          <div className="card-top-actions">
+             <SpeechButton textToSpeak={textoCarrossel} />
+          </div>
+          <div className="plano-nome">Seu anuncio</div>
+          <p className="plano-desc">Sua marca no topo da Home.</p>
+          <hr />
+          <ul className="lista-beneficios">
+            <li><FaCheck className="icon-check" /> Foto Gigante na Home</li>
+            <li><FaCheck className="icon-check" /> 7 dias de Destaque</li>
+            <li><FaCheck className="icon-check" /> Alta Visibilidade</li>
+          </ul>
+          <Link to="/pagamento?plano=carrossel" className="btn-plano btn-cheio">
+            Quero Destacar
           </Link>
         </div>
 
       </div>
     </div>
   );
-}
+};
 
 export default PlanosPage;

@@ -1,166 +1,235 @@
+/* Container Geral */
 .planos-container {
-  max-width: 1400px;
-  margin: 40px auto;
-  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
 }
 
-.planos-titulo {
+/* Cabeçalho */
+.planos-header {
   text-align: center;
+  margin-bottom: 50px;
+}
+
+.titulo-principal {
   font-size: 2.5rem;
-  color: var(--cor-principal);
-  margin-bottom: 40px;
+  color: #006D5B;
+  margin-bottom: 10px;
+  font-weight: 700;
 }
 
+.subtitulo {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+/* Grid dos Cards - Ajustado para wrap (quebrar linha) */
 .planos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Permite que os cards vão para a linha de baixo */
+  gap: 25px;
 }
 
+/* Estilo do Card */
 .plano-card {
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 12px;
-  padding: 30px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  padding: 30px 25px;
+  width: 280px; /* Um pouco mais estreito para caberem lado a lado */
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden; 
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-.plano-card.popular {
-  border-color: var(--cor-principal);
-  border-width: 2px;
+.plano-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 109, 91, 0.15);
+  border-color: #006D5B;
 }
 
-.plano-tag {
+/* Botão de som no topo */
+.card-top-actions {
   position: absolute;
-  top: 18px;
-  right: -55px; 
+  top: 15px;
+  right: 15px;
+}
+
+/* Card Destaque (Trimestral) */
+.plano-card.destaque {
+  border: 2px solid #006D5B;
+  background-color: #f9fffd;
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.plano-card.destaque:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+/* Badge "Mais Popular" */
+.badge-recomendado {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #006D5B;
   color: white;
-  padding: 5px 0;
-  width: 170px; 
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+/* Conteúdo */
+.plano-nome {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-top: 10px;
+  margin-bottom: 5px;
   text-align: center;
-  transform: rotate(45deg);
-  font-size: 0.6rem;
-  font-weight: bold;
-  z-index: 1; 
 }
 
-
-.plano-tag.popular {
-  background-color: var(--cor-detalhe); 
+.plano-desc {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  min-height: 40px;
 }
 
-.plano-tag.flexivel {
-  background-color: var(--cor-principal); 
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin-bottom: 20px;
 }
 
-.plano-tag.economia {
-  background-color: #f0ad4e; 
-}
-
-.plano-tag.valor {
-  background-color: #343a40; 
-}
-
-.plano-card h2 {
-  font-size: 1.8rem;
-  margin-top: 0;
-  margin-bottom: 25px;
-  color: var(--cor-principal);
-}
-
-.plano-card ul {
+/* Lista */
+.lista-beneficios {
   list-style: none;
   padding: 0;
-  margin: 0;
-  flex-grow: 1; 
+  margin: 0 0 25px 0;
+  flex-grow: 1;
 }
 
-.plano-card li {
+.lista-beneficios li {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 15px;
-  color: #333;
-  line-height: 1.5;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.4;
 }
 
-.check-icon {
-  color: var(--cor-detalhe);
-  font-weight: bold;
+.icon-check {
+  color: #006D5B;
   margin-right: 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
-.plano-card li.indisponivel {
-  color: #aaa;
+.lista-beneficios li.inativo {
+  color: #ccc;
+  text-decoration: line-through;
 }
-
-.plano-card li.indisponivel .check-icon {
+.lista-beneficios li.inativo .icon-check {
   color: #ccc;
 }
 
-.btn-assinar {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  background-color: var(--cor-principal);
-  color: var(--cor-branco);
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: opacity 0.2s;
-  z-index: 2; 
-  position: relative; 
-}
-
-.btn-assinar:hover {
-  opacity: 0.9;
-}
-
-.card-header {
+/* Botões */
+.btn-plano {
+  display: block;
   text-align: center;
-  margin-bottom: 20px;
-  z-index: 2; 
-  position: relative;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
 }
 
-.card-header h2 {
-  margin: 0;
-  font-size: 1.8em;
+.btn-outline {
+  border: 2px solid #006D5B;
+  color: #006D5B;
+  background: transparent;
+}
+.btn-outline:hover {
+  background-color: #006D5B;
+  color: white;
 }
 
-.plano-card.card-coins {
-  border: 2px solid #f0c419; /* Borda Dourada */
-  background-color: #fffcf0; /* Fundo levemente amarelado para destacar */
+.btn-cheio {
+  background-color: #006D5B;
+  color: white;
+  border: 2px solid #006D5B;
+}
+.btn-cheio:hover {
+  background-color: #005244;
+  border-color: #005244;
 }
 
-.coin-image-container {
+/* --- ESTILOS ESPECÍFICOS PARA O CARD DE COINS --- */
+.card-coins-style {
+  border-color: #FFD700; /* Borda Dourada */
+}
+.card-coins-style:hover {
+  border-color: #DAA520;
+  box-shadow: 0 15px 30px rgba(218, 165, 32, 0.2);
+}
+
+.img-coins-wrapper {
+  height: 80px;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.coin-img {
-  width: 120px; /* Tamanho da imagem da moeda */
-  height: auto;
-  object-fit: contain;
-  transition: transform 0.3s ease;
+.img-coins-wrapper img {
+  max-height: 100%;
+  width: auto;
 }
 
-.plano-card.card-coins:hover .coin-img {
-  transform: scale(1.1) rotate(10deg); /* Efeito divertido ao passar o mouse */
+.icon-check.gold {
+  color: #DAA520;
 }
 
-/* Botão com cor diferente para diferenciar de Assinatura */
-.btn-coins {
-  background-color: #f0c419; /* Cor Dourada */
-  color: #333; /* Texto escuro para contraste */
+.btn-gold {
+  background-color: #FFD700;
+  color: #333;
+  border: 2px solid #FFD700;
+}
+.btn-gold:hover {
+  background-color: #DAA520;
+  border-color: #DAA520;
+  color: white;
 }
 
-.btn-coins:hover {
-  background-color: #d9b015;
+/* Responsividade */
+@media (max-width: 900px) {
+  .plano-card {
+    width: 100%;
+    max-width: 350px;
+  }
+  .plano-card.destaque {
+    transform: scale(1);
+    order: -1;
+  }
+}
+
+/* Adicione em src/pages/Planos/style.css */
+.plano-tag.destaque-extra {
+  background-color: #e74c3c; /* Um vermelho/laranja para chamar atenção */
+  color: white;
 }

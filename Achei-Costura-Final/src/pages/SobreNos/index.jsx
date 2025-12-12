@@ -1,70 +1,94 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SpeechButton from '../../components/SpeechButton';
+import { FaHandshake, FaUsers, FaLightbulb, FaRocket } from 'react-icons/fa';
+// AQUI: Importamos o SpeechButton2 (o verde) em vez do original
+import SpeechButton from '../../components/SpeechButton2'; 
 import './style.css';
 
-function SobreNosPage() {
-  // 1. JUNTAMOS TODOS OS PARÁGRAFOS EM UM ÚNICO TEXTO PARA O PRIMEIRO BOTÃO
-  const textoPrincipal = `
-    Nós sabemos da sua correria. Sabemos o que é gastar sola de sapato e tempo precioso batendo de porta em porta em busca de uma boa oportunidade na área de facção. Da mesma forma, entendemos a urgência das empresas que precisam encontrar profissionais qualificados para não parar a produção. O mercado de confecções, um dos corações da economia brasileira, pulsava com um problema claro: a dificuldade de conectar quem quer trabalhar com quem precisa de talento. Vimos essa lacuna e tivemos a certeza de que a tecnologia poderia ser o fio que une essas duas pontas.
-    Assim nasceu o Achei Costura. Uma plataforma simples, prática e acessível na palma da sua mão. Nossa solução é acabar com o cansaço da procura. Queremos que você, seja de onde for no Brasil, encontre as melhores vagas ou os melhores profissionais da sua região, da sua cidade ou até mesmo do seu bairro, com apenas alguns cliques.
-    Nossa grande missão vai além de ser apenas um classificado de empregos. Nós queremos inverter a lógica da contratação. Nossa intenção é que você, profissional competente, não precise mais ir atrás das empresas. Nós queremos que as empresas venham até você! No "Achei Costura", seu perfil é a sua vitrine. É o espaço para você mostrar sua habilidade e sua experiência, permitindo que as melhores oportunidades encontrem o seu talento.
-    A força do "Achei Costura" vem da união de dois mundos: a experiência de mercado e a inovação tecnológica.
-    Nosso compromisso é com o fortalecimento de toda a cadeia produtiva da confecção no Brasil.
-  `;
-
-  // 2. Texto separado para a seção final
-  const textoFinal = `
-    E você, o que está esperando?
-    É profissional da costura? Cadastre seu perfil gratuitamente e seja encontrado pelas melhores empresas.
-    É uma empresa ou facção? Anuncie sua vaga e encontre o talento que você precisa para crescer.
+const SobreNosPage = () => {
+  // Texto que será lido pelo áudio
+  const textoNarracao = `
+    Sobre o Achei Costura.
+    Conectando quem costura a quem precisa.
+    Nossa História: Tudo começou com uma necessidade real. Um grande empresário do polo de confecções percebeu a dificuldade de encontrar profissionais qualificados. Ele uniu forças com uma equipe de programadores para criar esta solução.
+    Nossa Missão: Democratizar o acesso às oportunidades no setor têxtil.
+    Nosso Compromisso: Ser a ponte confiável entre grandes marcas e quem produz.
   `;
 
   return (
-    <div className="sobre-nos-container">
-      <h1 className="titulo-pagina">Sobre Nós</h1>
-
-      <div className="conteudo-sobre-nos">
-        {/* 3. UM ÚNICO BOTÃO NO TOPO DO CONTEÚDO */}
-        <div className="speech-button-container-top">
-          <SpeechButton textToSpeak={textoPrincipal} />
-        </div>
-
-        {/* Os parágrafos agora não precisam mais do wrapper 'readable-section' */}
-        <p>
-          Nós sabemos da sua correria. Sabemos o que é gastar sola de sapato e tempo precioso batendo de porta em porta em busca de uma boa oportunidade na área de facção. Da mesma forma, entendemos a urgência das empresas que precisam encontrar profissionais qualificados para não parar a produção. O mercado de confecções, um dos corações da economia brasileira, pulsava com um problema claro: a dificuldade de conectar quem quer trabalhar com quem precisa de talento. Vimos essa lacuna e tivemos a certeza de que a tecnologia poderia ser o fio que une essas duas pontas.
-        </p>
-        <p>
-          Assim nasceu o Achei Costura. Uma plataforma simples, prática e acessível na palma da sua mão. Nossa solução é acabar com o cansaço da procura. Queremos que você, seja de onde for no Brasil, encontre as melhores vagas ou os melhores profissionais da sua região, da sua cidade ou até mesmo do seu bairro, com apenas alguns cliques.
-        </p>
-        <p>
-          Nossa grande missão vai além de ser apenas um classificado de empregos. Nós queremos inverter a lógica da contratação. Nossa intenção é que você, profissional competente, não precise mais ir atrás das empresas. Nós queremos que as empresas venham até você! No "Achei Costura", seu perfil é a sua vitrine. É o espaço para você mostrar sua habilidade e sua experiência, permitindo que as melhores oportunidades encontrem o seu talento.
-        </p>
-        <p>
-          A força do "Achei Costura" vem da união de dois mundos: a experiência de mercado e a inovação tecnológica.
-        </p>
-        <p>
-          Nosso compromisso é com o fortalecimento de toda a cadeia produtiva da confecção no Brasil.
-        </p>
-        
-        <div className="cta-section">
-          <div className="cta-header">
-            <h3>E você, o que está esperando?</h3>
-            {/* 4. UM SEGUNDO BOTÃO APENAS PARA A SEÇÃO FINAL */}
-            <SpeechButton textToSpeak={textoFinal} />
+    <div className="sobre-container">
+      
+      {/* SEÇÃO HERO */}
+      <section className="sobre-hero">
+        <div className="hero-content">
+          
+          {/* BOTÃO DE ÁUDIO (Agora usa o estilo Verde/Branco do SpeechButton2) */}
+          <div className="audio-wrapper">
+             <SpeechButton textToSpeak={textoNarracao} />
           </div>
-          <ul>
-            <li>
-              É profissional da costura? <Link to="/cadastro">Cadastre seu perfil</Link> gratuitamente e seja encontrado pelas melhores empresas.
-            </li>
-            <li>
-              É uma empresa ou facção? <Link to="/anuncie">Anuncie sua vaga</Link> e encontre o talento que você precisa para crescer
-            </li>
-          </ul>
+
+          <h1>Conectando quem costura a quem precisa</h1>
+          <p>
+            O Achei Costura nasceu para revolucionar o mercado têxtil, facilitando parcerias reais e duradouras.
+          </p>
         </div>
-      </div>
+      </section>
+
+      {/* SEÇÃO DA HISTÓRIA */}
+      <section className="sobre-historia">
+        <div className="historia-texto">
+          <h2>Nossa História</h2>
+          <p>
+            Tudo começou com uma necessidade real. Um grande empresário do polo de confecções percebeu a dificuldade diária de encontrar profissionais qualificados e facções de confiança.
+          </p>
+          <p>
+            Ele uniu forças com uma equipe de programadores apaixonados por inovação. Juntos, criamos o <strong>Achei Costura</strong>: uma solução feita por quem entende do mercado para quem vive dele.
+          </p>
+        </div>
+        <div className="historia-cards">
+          <div className="card-valor">
+            <FaUsers className="icon-valor" />
+            <h3>União</h3>
+            <p>Tecnologia e experiência de mercado andando juntas.</p>
+          </div>
+          <div className="card-valor">
+            <FaLightbulb className="icon-valor" />
+            <h3>Inovação</h3>
+            <p>Transformando a busca por facções em algo simples.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SEÇÃO DE MISSÃO VISUAL */}
+      <section className="sobre-missao">
+        <div className="missao-box">
+          <FaRocket className="missao-icon" />
+          <h2>Nossa Missão</h2>
+          <p>
+            Democratizar o acesso às oportunidades no setor têxtil, permitindo que costureiras, modelistas e facções de todos os tamanhos encontrem trabalho digno e empresas parceiras.
+          </p>
+        </div>
+        <div className="missao-box">
+          <FaHandshake className="missao-icon" />
+          <h2>Nosso Compromisso</h2>
+          <p>
+            Ser a ponte confiável entre a demanda das grandes marcas e o talento de quem produz, gerando renda e crescimento para toda a região.
+          </p>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="sobre-cta">
+        <h2>Faça parte dessa revolução</h2>
+        <p>Seja você uma empresa ou um profissional, seu lugar é aqui.</p>
+        <div className="cta-buttons">
+          <Link to="/cadastro" className="btn-cta btn-primary">Cadastre-se Grátis</Link>
+          <Link to="/contato" className="btn-cta btn-secondary">Fale Conosco</Link>
+        </div>
+      </section>
+
     </div>
   );
-}
+};
 
 export default SobreNosPage;

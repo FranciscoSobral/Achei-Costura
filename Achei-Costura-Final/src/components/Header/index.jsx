@@ -1,53 +1,96 @@
-import React, { useState } from 'react'; // Adicionei useState para o menu mobile se precisar
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { Search } from 'react-bootstrap-icons'; // 1. Importar o ícone de Lupa
+import React, { useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import logo from '../../assets/logo.png'; 
+import coinsIcon from '../../assets/coins.png'; 
 import './style.css';
-import logoAcheiCostura from '../../assets/logo.png';
-import coinsImg from '../../assets/coins.png';
+import { List, X, Search, BoxArrowRight, PersonCircle } from 'react-bootstrap-icons';
+import { useAuth } from '../../context/AuthContext';
 
 function Header() {
-  const { isLoggedIn, user } = useAuth();
-  // Se você tiver a lógica do menu mobile (hambúrguer) de antes, mantenha aqui.
-  // Vou focar apenas na barra de pesquisa conforme solicitado.
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth(); 
+  const navigate = useNavigate();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    signOut();
+    closeMenu();
+    navigate('/');
+  };
 
   return (
-    <header className="main-header">
-      <div className="header-content">
-        
+    <header className="header">
+      <div className="header-container">
+
         <div className="logo-container">
-          <Link to="/">
-            <img src={logoAcheiCostura} alt="Logo Achei Costura" className="logo-imagem" />
+          <Link to="/" onClick={closeMenu}>
+            <img src={logo} alt="Achei Costura" className="logo-img" />
           </Link>
         </div>
 
-        <nav className="main-nav">
-          <Link to="/">Início</Link>
-          <Link to="/planos">Planos</Link>
-          <Link to="/contato">Contato</Link>
-          <Link to="/sobre-nos">Sobre nós</Link>
-        </nav>
-        
-        <div className="header-actions">
-          
-          {/* 2. MUDANÇA AQUI: Ícone dentro da div */}
-          <div className="search-bar">
-            <input type="text" placeholder="Buscar..." />
-            <Search className="search-icon" /> 
-          </div>
-
-          {/* LÓGICA: Se estiver logado, mostra as moedas */}
-          {isLoggedIn && user && (
-            <div className="coin-balance-card">
-              <span className="coin-count">{user.coins}</span>
-              <img src={coinsImg} alt="Coins" className="header-coin-icon" />
+        <div className="search-bar-container">
+            <div className="search-input-wrapper">
+                <input 
+                    type="text" 
+                    placeholder="Buscar..." 
+                    className="search-input"
+                />
+                <button className="search-button">
+                    <Search size={16} />
+                </button>
             </div>
-          )}
-
-          <Link to={isLoggedIn ? "/meu-perfil" : "/login"} className="login-btn">
-            {isLoggedIn ? "Meu Perfil" : "Login"}
-          </Link>
         </div>
+
+        <div className="mobile-menu-icon" onClick={toggleMenu}>
+          {isMenuOpen ? <X size={40} /> : <List size={40} />}
+        </div>
+
+        <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+          <ul className="nav-list">
+            <li><NavLink to="/" className="nav-link" onClick={closeMenu}>Início</NavLink></li>
+            <li><NavLink to="/planos" className="nav-link" onClick={closeMenu}>Planos</NavLink></li>
+            <li><NavLink to="/sobre-nos" className="nav-link" onClick={closeMenu}>Sobre Nós</NavLink></li>
+            <li><NavLink to="/contato" className="nav-link" onClick={closeMenu}>Contato</NavLink></li>
+          </ul>
+
+          <div className="nav-actions">
+            {user ? (
+              <div className="user-controls">
+                
+                <div className="coins-display">
+                  <img src={coinsIcon} alt="AC" className="coin-icon" />
+                  <span className="coin-text">{user.ac_coins || 0} AC</span>
+                </div>
+
+                <Link to="/meu-perfil" className="profile-link" onClick={closeMenu}>
+                   <PersonCircle size={24} />
+                   <span className="link-text">Meu Perfil</span>
+                </Link>
+
+                <button onClick={handleLogout} className="btn-logout">
+                  <BoxArrowRight size={24} />
+                  <span className="link-text">Sair</span>
+                </button>
+              </div>
+            ) : (
+              <>
+                <Link to="/login" className="btn-login" onClick={closeMenu}>
+                  Login
+                </Link>
+                <Link to="/cadastro" className="btn-cadastro" onClick={closeMenu}>
+                  Cadastre-se
+                </Link>
+              </>
+            )}
+          </div>
+        </nav>
       </div>
     </header>
   );

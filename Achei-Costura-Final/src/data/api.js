@@ -1,7 +1,5 @@
-// 1. A lista de empresas agora está VAZIA.
 const DADOS_DAS_EMPRESAS = [];
 
-// 2. A lista de costureiros está completa.
 const DADOS_DOS_COSTUREIROS = [
     { 
         id: 101,
@@ -25,7 +23,7 @@ const DADOS_DOS_COSTUREIROS = [
         tipo: 'costureiros',
         cidade: 'Toritama - PE'
     },
-    // ... mais costureiros aqui
+
 ];
 
 

@@ -105,6 +105,53 @@
 }
 .nav-btn:hover { background: var(--primary); color: white; }
 
+@media (max-width: 768px) {
+  
+  .destaque-card {
+    flex-direction: column; /* Coloca setas em volta do conteúdo ou ajusta layout */
+    padding: 20px;
+    position: relative; /* Para posicionar as setas */
+  }
+
+  .destaque-conteudo {
+    flex-direction: column; /* Foto em cima, texto embaixo */
+    text-align: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .destaque-foto-wrapper img {
+    width: 120px; /* Foto menor no celular */
+    height: 120px;
+  }
+
+  .destaque-info {
+    text-align: center; /* Centraliza texto */
+    max-width: 100%;
+  }
+
+  .destaque-info h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Posiciona as setas de forma absoluta no meio da foto para economizar espaço */
+  .nav-btn {
+    position: absolute;
+    top: 130px; /* Ajuste conforme a altura da foto */
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 10;
+  }
+
+  .nav-btn.prev {
+    left: 10px;
+  }
+
+  .nav-btn.next {
+    right: 10px;
+  }
+}
 
 /* --- 2. ÁREA PRINCIPAL --- */
 .main-content {

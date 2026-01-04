@@ -1,29 +1,67 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './style.css'; 
+import { useAuth } from '../../context/AuthContext'; 
+import './style.css';
+import { StarFill, GeoAltFill, LockFill } from 'react-bootstrap-icons'; 
 
-// 1. Removemos a prop 'tipo' daqui, pois vamos descobrir a partir do 'item'.
-function Card({ item }) {
-  
-  // 2. Lógica inteligente: Verificamos se o item tem a propriedade 'tipo'.
-  // Se tiver (ex: 'costureiros'), usamos ela. Se não, o padrão será 'empresas'.
-  const tipoDoLink = item.tipo || 'empresas';
+function Card({ id, imagem, nome, cidade, avaliacao, servicos, premiumRequired = true }) {
+  const { user } = useAuth();
 
-  // O console.log continua aqui para ajudar a verificar
-  console.log("Card está criando um link para:", `/${tipoDoLink}/${item.id}`, "para o item:", item.nome);
+  const isPremium = user && user.ac_coins > 0; 
+
+  const isCensored = premiumRequired && !isPremium;
+
+  const renderName = () => {
+    if (!isCensored) return nome;
+    
+    return (
+      <span className="censored-text">
+        {nome.substring(0, 3)}... <span className="blur-effect">******</span>
+      </span>
+    );
+  };
 
   return (
-    <div className="card-empresa">
-      <img src={item.imageUrl || 'https://via.placeholder.com/300x200'} alt={item.nome} />
-      <div className="card-info">
-        <h3>{item.nome}</h3>
-        <p>{item.categoria}</p>
-        <span>{item.contato}</span>
-        
-        {/* 3. Usamos a nossa nova variável para montar o link. */}
-        <Link to={`/${tipoDoLink}/${item.id}`}>
-          <button>Saiba mais</button>
-        </Link>
+    <div className="card-container">
+      {/* Imagem (Se censurado, podemos deixar preto e branco ou normal) */}
+      <div className="card-image-wrapper">
+        <img src={imagem} alt="Foto de perfil" className="card-img" />
+        {isCensored && (
+            <div className="locked-overlay">
+                <LockFill size={24} color="#fff" />
+            </div>
+        )}
+      </div>
+
+      <div className="card-content">
+        {/* Nome com Censura */}
+        <h3 className={`card-title ${isCensored ? 'censored' : ''}`}>
+          {renderName()}
+        </h3>
+
+        {/* Localização */}
+        <p className="card-location">
+          <GeoAltFill className="icon-location" /> {cidade}
+        </p>
+
+        {/* Avaliação */}
+        <div className="card-rating">
+            <span className="rating-score">{avaliacao}</span>
+            <StarFill className="icon-star" />
+        </div>
+
+        {/* Serviços (Tags) */}
+        {servicos && (
+            <div className="card-tags">
+            {servicos.slice(0, 2).map((servico, index) => ( // Mostra só os 2 primeiros
+                <span key={index} className="tag">{servico}</span>
+            ))}
+            </div>
+        )}
+
+        {/* Botão de Ação */}
+        <button className={`card-btn ${isCensored ? 'btn-locked' : ''}`}>
+          {isCensored ? 'Desbloquear Contato' : 'Ver Perfil'}
+        </button>
       </div>
     </div>
   );

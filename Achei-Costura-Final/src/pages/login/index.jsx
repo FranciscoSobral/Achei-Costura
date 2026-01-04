@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; 
-import SpeechButton from '../../components/SpeechButton'; 
+import { Link } from 'react-router-dom'; // Trocando 'a' por 'Link'
+import SpeechButton from '../../components/SpeechButton'; // Nosso botão de áudio
 import './style.css'; 
 
 export function LoginPage() {
@@ -8,6 +8,7 @@ export function LoginPage() {
   const textoEmail = "Email";
   const textoSenha = "Senha";
 
+  // No futuro, você pode adicionar a lógica de login aqui
   const handleSubmit = (e) => {
     e.preventDefault();
     alert('Login simulado!');
@@ -45,6 +46,7 @@ export function LoginPage() {
         </form>
 
         <div className="auth-links">
+          {/* Usando <Link> em vez de <a> */}
           <Link to="/esqueci-senha">Esqueceu a sua senha?</Link>
           <Link to="/cadastro">Não possui um cadastro?</Link>
         </div>

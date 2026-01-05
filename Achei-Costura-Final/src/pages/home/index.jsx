@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getCostureiros } from '../../data/api'; // Importando dados da API
+import Card from '../../components/Card/index.jsx';
 import './style.css'; 
+import { useAuth } from '../../context/AuthContext';
 
 const Home = () => {
+
+  // Use o hook useAuth para acessar o contexto
+  const { user, login, isLoggedIn } = useAuth();
+
   // 1. Busca os dados da API
   const todosCostureiros = getCostureiros();
 
@@ -15,6 +21,10 @@ const Home = () => {
       foto: user.imageUrl, // A API usa 'imageUrl', mas o layout usa 'foto'
       destaque: true       // Força ambos como destaque para o carrossel
     }));
+
+  // DEBUG: Verifique se os dados estão chegando
+  console.log('🏠 Home - Total de costureiros:', todosCostureiros.length);
+  console.log('🏠 Home - Usuários filtrados:', usuariosHome);
 
   // Lógica do Carrossel (usando a lista filtrada)
   const [indexDestaque, setIndexDestaque] = useState(0);
@@ -93,23 +103,19 @@ const Home = () => {
           </div>
         </div>
 
-        {/* GRID DE CARDS */}
+        {/* GRID DE CARDS - AGORA USANDO O COMPONENTE CARD */}
         <div className="cards-grid">
           {usuariosHome.map((user) => (
-            <div key={user.id} className="card">
-              <div className="card-header">
-                <img src={user.foto} alt={user.nome} />
-              </div>
-              <div className="card-body">
-                <h3>{user.nome}</h3>
-                <span className="card-categoria">{user.categoria}</span>
-                <span className="card-cidade">📍 {user.cidade}</span>
-                {/* Transformei o botão em Link para funcionar a navegação */}
-                <Link to={`/costureiros/${user.id}`}>
-                    <button className="btn-card-action">Saiba mais</button>
-                </Link>
-              </div>
-            </div>
+            <Card
+              key={user.id}
+              id={user.id}
+              imagem={user.foto || user.imageUrl} //  a foto ou imageUrl
+              nome={user.nome}
+              cidade={user.cidade}
+              avaliacao={user.avaliacao}
+              servicos={[user.categoria]} // Transforma a categoria em array para servicos
+              premiumRequired={true} // Defina como true para testar a censura
+            />
           ))}
         </div>
       </div>

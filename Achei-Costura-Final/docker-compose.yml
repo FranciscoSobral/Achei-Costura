@@ -10,9 +10,19 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+      # Cache do Vite para melhor performance
+      - vite_cache:/app/node_modules/.vite
     environment:
+      # Configurações específicas para Vite + Docker
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+      # Otimizações para desenvolvimento
+      - NODE_ENV=development
     stdin_open: true
     tty: true
     restart: unless-stopped
+    # Comando simplificado sem tentar modificar system files
+    command: npm run dev -- --host 0.0.0.0
+
+volumes:
+  vite_cache:

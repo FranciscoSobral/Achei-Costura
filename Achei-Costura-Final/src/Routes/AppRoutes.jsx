@@ -14,9 +14,11 @@ import SobreNosPage from '../pages/SobreNos';
 import PagamentoPage from '../pages/Pagamento';
 import ContatoPage from '../pages/Contato';
 import MeuPerfilPage from '../pages/MeuPerfil';
+import { AuthProvider } from '../context/AuthContext';
 
 function AppRoutes() {
   return (
+    <AuthProvider> {/* AuthProvider DEVE envolver tudo que usa useAuth */}
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/planos" element={<PlanosPage />} />
@@ -33,6 +35,7 @@ function AppRoutes() {
       <Route path="/cadastrostep3" element={<CadastroStep3Page />} /> 
       <Route path="/pagamento" element={<PagamentoPage />} />
     </Routes>
+    </AuthProvider>
   );
 }
 

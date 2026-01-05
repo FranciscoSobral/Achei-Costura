@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react'; // Certifique-se de importar useEffect
 import { useAuth } from '../../context/AuthContext'; 
 import './style.css';
 import { StarFill, GeoAltFill, LockFill } from 'react-bootstrap-icons'; 
@@ -6,9 +6,22 @@ import { StarFill, GeoAltFill, LockFill } from 'react-bootstrap-icons';
 function Card({ id, imagem, nome, cidade, avaliacao, servicos, premiumRequired = true }) {
   const { user } = useAuth();
 
-  const isPremium = user && user.ac_coins > 0; 
+  // DEBUG 1: Log simples (fora do useEffect)
+  console.log('🎯 Card - user do contexto:', user);
+  console.log('🎯 Card - coins do user:', user?.coins);
 
+  // DEBUG 2: useEffect para logs
+  useEffect(() => {
+    console.log('🔄 useEffect Card - user atualizado:', user);
+    console.log('🔄 useEffect Card - premiumRequired:', premiumRequired);
+  }, [user, premiumRequired]);
+
+  const isPremium = user && user.coins > 0;
   const isCensored = premiumRequired && !isPremium;
+
+  // DEBUG 3: Log dos cálculos
+  console.log('📊 Card - isPremium:', isPremium);
+  console.log('📊 Card - isCensored:', isCensored);
 
   const renderName = () => {
     if (!isCensored) return nome;
@@ -21,7 +34,7 @@ function Card({ id, imagem, nome, cidade, avaliacao, servicos, premiumRequired =
   };
 
   return (
-    <div className="card-container">
+    <div className="card-container" >
       {/* Imagem (Se censurado, podemos deixar preto e branco ou normal) */}
       <div className="card-image-wrapper">
         <img src={imagem} alt="Foto de perfil" className="card-img" />
@@ -60,7 +73,17 @@ function Card({ id, imagem, nome, cidade, avaliacao, servicos, premiumRequired =
 
         {/* Botão de Ação */}
         <button className={`card-btn ${isCensored ? 'btn-locked' : ''}`}>
-          {isCensored ? 'Desbloquear Contato' : 'Ver Perfil'}
+          {isCensored ? (
+          // Se censurado: botão normal
+          <button className="card-btn btn-locked">
+            Desbloquear Contato
+          </button>
+        ) : (
+          // Se NÃO censurado: Link para o perfil
+          <button className="card-btn" onClick={() => window.location.href = `/costureiros/${id}`}>
+            Ver Perfil
+          </button>
+        )}
         </button>
       </div>
     </div>

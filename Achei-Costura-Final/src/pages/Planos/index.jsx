@@ -1,21 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaCheck, FaStar, FaCoins } from 'react-icons/fa'; // Ícones
+import { useNavigate } from 'react-router-dom'; // Importante para o redirecionamento
+import { FaCheck, FaStar, FaCoins } from 'react-icons/fa'; 
 import SpeechButton from '../../components/SpeechButton';
-import coinsImg from '../../assets/coins.png'; // Imagem das coins
+import coinsImg from '../../assets/coins.png'; 
 import './style.css';
 
 const PlanosPage = () => {
+  const navigate = useNavigate();
   
-  // --- Textos para o Áudio ---
-  const textoPlanoMensal = "Plano Mensal. Benefícios: Desbloqueie todos os contatos por 1 mês. Navegação sem anúncios de terceiros, item indisponível. Ideal para projetos rápidos e imediatos.";
-  const textoPlanoTrimestral = "Plano Trimestral, o mais popular. Benefícios: Desbloqueie todos os contatos por 3 meses. Navegação sem anúncios de terceiros. Suporte prioritário. Ótimo custo-benefício para projetos recorrentes.";
-  const textoPlanoSemestral = "Plano Semestral. Benefícios: Desbloqueie todos os contatos por 6 meses. Navegação sem anúncios de terceiros. Suporte prioritário. Máxima economia com o melhor valor a longo prazo.";
-  const textoPlanoAnual = "Plano Anual. Benefícios: Acesso anual. Desbloqueie todos os contatos durante 1 ano inteiro. Suporte Premium e acesso antecipado a novidades. Navegação sem anúncios de terceiros.";
-  const textoCoins = "Comprar AC Coins. Compre moedas para desbloquear facções individualmente. Uma moeda equivale a um desbloqueio. Sem mensalidade ou fidelidade.";
-  
-  // NOVO: Texto do Carrossel
-  const textoCarrossel = "Anúncio. Destaque Máximo. Sua marca ou perfil aparece no topo da página inicial com alta visibilidade. Ideal para promover lançamentos ou vagas urgentes. Foto Gigante na Home. 7 dias de Destaque. Alta Visibilidade.";
+  // Textos para o SpeechButton (Mantive os seus originais)
+  const textoPlanoMensal = "Plano Mensal. Benefícios: Desbloqueie todos os contatos por 1 mês. Navegação sem anúncios de terceiros. Ideal para projetos rápidos.";
+  const textoPlanoTrimestral = "Plano Trimestral. Benefícios: Desbloqueie todos os contatos por 3 meses. Sem anúncios. Suporte prioritário. Ótimo custo-benefício.";
+  const textoPlanoSemestral = "Plano Semestral. Benefícios: Desbloqueie todos os contatos por 6 meses. Sem anúncios. Suporte prioritário. Máxima economia.";
+  const textoPlanoAnual = "Plano Anual. Benefícios: Acesso anual completo. Suporte Premium. Navegação sem anúncios.";
+  const textoCoins = "Comprar AC Coins. Compre moedas para desbloquear facções individualmente. Sem mensalidade.";
+  const textoCarrossel = "Anúncio Destaque. Sua marca no topo da página inicial com alta visibilidade. Foto Gigante. 7 dias de Destaque.";
+
+  // --- FUNÇÃO DE NAVEGAÇÃO CORRIGIDA ---
+  // Agora aponta para '/pagamento' (singular), igual ao seu AppRoutes
+  const handleComprar = (nome, preco, tipo, dias = null) => {
+    navigate('/pagamento', { 
+      state: { 
+        nome: nome, 
+        preco: preco, 
+        tipo: tipo,    // 'assinatura', 'moeda' ou 'anuncio_destaque'
+        dias: dias     // Só vai preenchido se for o carrossel
+      } 
+    });
+  };
 
   return (
     <div className="planos-container">
@@ -40,12 +52,15 @@ const PlanosPage = () => {
             <li><FaCheck className="icon-check" /> Contatos liberados</li>
             <li className="inativo">Sem anúncios</li>
           </ul>
-          <Link to="/pagamento?plano=mensal" className="btn-plano btn-outline">
+          <button 
+            className="btn-plano btn-outline"
+            onClick={() => handleComprar("Plano Mensal", "R$ 29,90", "assinatura")}
+          >
             Assinar Agora
-          </Link>
+          </button>
         </div>
 
-        {/* 2. TRIMESTRAL (DESTAQUE) */}
+        {/* 2. TRIMESTRAL */}
         <div className="plano-card destaque">
           <div className="badge-recomendado"><FaStar /> Mais Popular</div>
           <div className="card-top-actions">
@@ -59,9 +74,12 @@ const PlanosPage = () => {
             <li><FaCheck className="icon-check" /> <strong>Sem anúncios</strong></li>
             <li><FaCheck className="icon-check" /> Suporte Prioritário</li>
           </ul>
-          <Link to="/pagamento?plano=trimestral" className="btn-plano btn-cheio">
+          <button 
+            className="btn-plano btn-cheio"
+            onClick={() => handleComprar("Plano Trimestral", "R$ 79,90", "assinatura")}
+          >
             Assinar Agora
-          </Link>
+          </button>
         </div>
 
         {/* 3. SEMESTRAL */}
@@ -77,9 +95,12 @@ const PlanosPage = () => {
             <li><FaCheck className="icon-check" /> Sem anúncios</li>
             <li><FaCheck className="icon-check" /> Suporte Prioritário</li>
           </ul>
-          <Link to="/pagamento?plano=semestral" className="btn-plano btn-outline">
+          <button 
+            className="btn-plano btn-outline"
+            onClick={() => handleComprar("Plano Semestral", "R$ 149,90", "assinatura")}
+          >
             Assinar Agora
-          </Link>
+          </button>
         </div>
 
         {/* 4. ANUAL */}
@@ -95,19 +116,21 @@ const PlanosPage = () => {
             <li><FaCheck className="icon-check" /> Suporte Premium</li>
             <li><FaCheck className="icon-check" /> Novidades antecipadas</li>
           </ul>
-          <Link to="/pagamento?plano=anual" className="btn-plano btn-outline">
+          <button 
+            className="btn-plano btn-outline"
+            onClick={() => handleComprar("Plano Anual", "R$ 290,00", "assinatura")}
+          >
             Assinar Agora
-          </Link>
+          </button>
         </div>
 
-        {/* 5. COINS (CARD ESPECIAL) */}
+        {/* 5. AC COINS */}
         <div className="plano-card card-coins-style">
           <div className="card-top-actions">
              <SpeechButton textToSpeak={textoCoins} />
           </div>
           <div className="plano-nome">AC COINS</div>
           
-          {/* Imagem das moedas */}
           <div className="img-coins-wrapper">
             <img src={coinsImg} alt="Moedas" />
           </div>
@@ -119,18 +142,22 @@ const PlanosPage = () => {
             <li><FaCheck className="icon-check" /> Sem mensalidade</li>
             <li><FaCheck className="icon-check" /> As moedas não expiram</li>
           </ul>
-          <Link to="/pagamento?plano=coins" className="btn-plano btn-gold">
+          
+          <button 
+            className="btn-plano btn-gold"
+            onClick={() => handleComprar("Pacote AC Coins", "R$ 10,00", "moeda")}
+          >
             Comprar Moedas
-          </Link>
+          </button>
         </div>
 
-        {/* 6. NOVO: ANÚNCIO CARROSSEL */}
+        {/* 6. CARROSSEL (DESTAQUE) */}
         <div className="plano-card">
           <div className="badge-recomendado" style={{ backgroundColor: '#e74c3c' }}>🚀 Destaque Extra</div>
           <div className="card-top-actions">
              <SpeechButton textToSpeak={textoCarrossel} />
           </div>
-          <div className="plano-nome">Seu anuncio</div>
+          <div className="plano-nome">Seu Anuncio</div>
           <p className="plano-desc">Sua marca no topo da Home.</p>
           <hr />
           <ul className="lista-beneficios">
@@ -138,9 +165,14 @@ const PlanosPage = () => {
             <li><FaCheck className="icon-check" /> 7 dias de Destaque</li>
             <li><FaCheck className="icon-check" /> Alta Visibilidade</li>
           </ul>
-          <Link to="/pagamento?plano=carrossel" className="btn-plano btn-cheio">
+          
+          {/* Botão configurado para Destaque */}
+          <button 
+            className="btn-plano btn-cheio"
+            onClick={() => handleComprar("Destaque Carrossel", "R$ 49,90", "anuncio_destaque", 7)}
+          >
             Quero Destacar
-          </Link>
+          </button>
         </div>
 
       </div>

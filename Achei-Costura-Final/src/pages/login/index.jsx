@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Trocando 'a' por 'Link'
-import SpeechButton from '../../components/SpeechButton'; // Nosso botão de áudio
+import { Link, useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../../context/AuthContext'; 
+import SpeechButton from '../../components/SpeechButton'; 
 import './style.css'; 
 
 export function LoginPage() {
@@ -8,10 +9,24 @@ export function LoginPage() {
   const textoEmail = "Email";
   const textoSenha = "Senha";
 
-  // No futuro, você pode adicionar a lógica de login aqui
-  const handleSubmit = (e) => {
+  // 3. Recuperamos as funções de lógica
+  const { login, finishTransition } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Login simulado!');
+    
+    // LOGICA DA CORTINA:
+    // 1. Inicia o login (a tela fica roxa) e espera o tempo definido
+    await login(); 
+
+    // 2. Navega para a home (o usuário não vê a troca pois a tela está roxa)
+    navigate('/');
+
+    // 3. Avisa para a cortina sair (revelando a home)
+    setTimeout(() => {
+        finishTransition();
+    }, 100);
   };
 
   return (
@@ -46,7 +61,6 @@ export function LoginPage() {
         </form>
 
         <div className="auth-links">
-          {/* Usando <Link> em vez de <a> */}
           <Link to="/esqueci-senha">Esqueceu a sua senha?</Link>
           <Link to="/cadastro">Não possui um cadastro?</Link>
         </div>

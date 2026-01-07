@@ -5,61 +5,64 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
-  const [isInitializing, setIsInitializing] = useState(true); // Estado de carregamento
+  const [loadingAuth, setLoadingAuth] = useState(false); 
+  const [isInitializing, setIsInitializing] = useState(true);
 
   useEffect(() => {
     const initializeAuth = () => {
-      const isDevelopment = process.env.NODE_ENV === 'development';
-      
-      // Tenta carregar do localStorage primeiro
       const savedUser = localStorage.getItem('dev_user');
-      
       if (savedUser) {
-        // Restaura do localStorage
-        const parsedUser = JSON.parse(savedUser);
-        setUser(parsedUser);
-        setIsLoggedIn(true);
-        console.log('🔄 Usuário restaurado do localStorage');
-      } else if (isDevelopment) {
-        // Login automático apenas se não tiver usuário salvo
-        console.log('🔄 Login automático para desenvolvimento');
-        const devUser = { 
-          nome: 'Usuário Teste', 
-          coins: 1 
-        };
-        setUser(devUser);
-        setIsLoggedIn(true);
-        localStorage.setItem('dev_user', JSON.stringify(devUser));
-      }
-      
+        try {
+          setUser(JSON.parse(savedUser));
+          setIsLoggedIn(true);
+        } catch (error) {
+          localStorage.removeItem('dev_user');
+        }
+      } 
       setIsInitializing(false);
     };
-    
     initializeAuth();
-  }, []); // Executa apenas uma vez
+  }, []);
 
-  const login = () => {
-    setIsLoggedIn(true);
-    const newUser = { 
-      nome: 'Usuário Teste', 
-      coins: 1 
-    };
-    setUser(newUser);
-    localStorage.setItem('dev_user', JSON.stringify(newUser));
+  // Agora login retorna uma Promise (permite usar await)
+  const login = (userData) => {
+    return new Promise((resolve) => {
+      setLoadingAuth(true);
+
+      setTimeout(() => {
+          const newUser = userData || { 
+            nome: 'Usuário Teste', 
+            coins: 5 // Ajustei para 5 moedas como você mencionou
+          };
+          setUser(newUser);
+          setIsLoggedIn(true);
+          localStorage.setItem('dev_user', JSON.stringify(newUser));
+          
+          setLoadingAuth(false);
+          resolve(); // Avisa que terminou!
+      }, 1500);
+    });
   };
 
+  // Logout também retorna Promise
   const logout = () => {
-    setIsLoggedIn(false);
-    setUser(null);
-    localStorage.removeItem('dev_user');
+    return new Promise((resolve) => {
+      setLoadingAuth(true);
+
+      setTimeout(() => {
+          setIsLoggedIn(false);
+          setUser(null);
+          localStorage.removeItem('dev_user');
+          
+          setLoadingAuth(false);
+          resolve(); // Avisa que terminou!
+      }, 1500);
+    });
   };
 
   const gastarMoeda = () => {
     if (user && user.coins > 0) {
-      const updatedUser = {
-        ...user,
-        coins: user.coins - 1
-      };
+      const updatedUser = { ...user, coins: user.coins - 1 };
       setUser(updatedUser);
       localStorage.setItem('dev_user', JSON.stringify(updatedUser));
       return true; 
@@ -72,8 +75,9 @@ export function AuthProvider({ children }) {
     login, 
     logout, 
     user, 
-    gastarMoeda,
-    isInitializing // Para mostrar loading se necessário
+    gastarMoeda, 
+    isInitializing,
+    loadingAuth 
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -81,11 +85,6 @@ export function AuthProvider({ children }) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  
-  // Opcional: Pode adicionar um loading enquanto inicializa
-  if (context.isInitializing) {
-    console.log('⏳ AuthContext ainda inicializando...');
-  }
-  
+  if (!context) throw new Error('useAuth deve ser usado dentro de um AuthProvider');
   return context;
 }

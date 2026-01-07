@@ -1,32 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getCostureiros } from '../../data/api'; // Importando dados da API
-import Card from '../../components/Card/index.jsx';
-import './style.css'; 
+import Card from '../../components/Card/index.jsx'; // Verifique se o caminho está certo
+import './style.css';
 import { useAuth } from '../../context/AuthContext';
 
 const Home = () => {
 
   // Use o hook useAuth para acessar o contexto
-  const { user, login, isLoggedIn } = useAuth();
+  const { user } = useAuth();
 
   // 1. Busca os dados da API
   const todosCostureiros = getCostureiros();
 
-  // 2. Filtra APENAS Gabriel e Sara e adapta os dados para o layout da Home
+  // --- CORREÇÃO 1: Definindo a lista principal para o Grid de cards ---
+  // Se quiser tirar os destaques da lista de baixo, você pode filtrar aqui.
+  // Por enquanto, vou deixar todos:
+  const listaCostureiras = todosCostureiros; 
+
+  // 2. Filtra APENAS Gabriel e Sara para o Destaque
   const usuariosHome = todosCostureiros
-    .filter(user => user.nome.includes("Gabriel") || user.nome.includes("Sara"))
-    .map(user => ({
-      ...user,
-      foto: user.imageUrl, // A API usa 'imageUrl', mas o layout usa 'foto'
-      destaque: true       // Força ambos como destaque para o carrossel
-    }));
+  
+  .filter(user => user.isDestaque === true) 
+  .map(user => ({
+     ...user,
+     foto: user.foto_url
+  }));
 
-  // DEBUG: Verifique se os dados estão chegando
-  console.log('🏠 Home - Total de costureiros:', todosCostureiros.length);
-  console.log('🏠 Home - Usuários filtrados:', usuariosHome);
-
-  // Lógica do Carrossel (usando a lista filtrada)
+  // Lógica do Carrossel
   const [indexDestaque, setIndexDestaque] = useState(0);
 
   const mudarDestaque = (direcao) => {
@@ -37,40 +38,41 @@ const Home = () => {
     }
   };
 
-  // Garante que o usuário destaque existe (caso a lista esteja vazia por algum erro)
   const usuarioDestaque = usuariosHome[indexDestaque] || {};
 
   return (
     <div className="home-container">
-      
+
       {/* 1. ÁREA DE DESTAQUE PREMIUM */}
       {usuariosHome.length > 0 && (
         <section className="destaque-section">
           <div className="destaque-card">
-            
+
             <button className="nav-btn prev" onClick={() => mudarDestaque('ant')}>
-               &lt;
+              &lt;
             </button>
-            
+
             <div className="destaque-conteudo">
               <div className="destaque-foto-wrapper">
-                 <img src={usuarioDestaque.foto} alt={usuarioDestaque.nome} />
-                 <span className="badge-vip">⭐ Destaque</span>
+                {/* Verifica se existe foto, senão põe placeholder */}
+                <img src={usuarioDestaque.foto || "https://via.placeholder.com/150"} alt={usuarioDestaque.nome} />
+                <span className="badge-vip">⭐ Destaque</span>
               </div>
-              
+
               <div className="destaque-info">
                 <h3>{usuarioDestaque.nome}</h3>
-                <p className="cargo">{usuarioDestaque.categoria}</p>
+                <p className="cargo">{usuarioDestaque.categoria || "Costura Geral"}</p>
                 <p className="local">{usuarioDestaque.cidade}</p>
-                {/* Link corrigido para a rota definida no AppRoutes */}
-                <Link to={`/costureiros/${usuarioDestaque.id}`} className="btn-ver-perfil">
+                
+                {/* Link para o perfil */}
+                <Link to={`/perfil/${usuarioDestaque.id}`} className="btn-ver-perfil">
                   Ver Perfil
                 </Link>
               </div>
             </div>
 
             <button className="nav-btn next" onClick={() => mudarDestaque('prox')}>
-               &gt;
+              &gt;
             </button>
 
           </div>
@@ -79,11 +81,11 @@ const Home = () => {
 
       {/* 2. MIOLO DA PÁGINA */}
       <div className="main-content">
-        
+
         {/* BARRA DE TÍTULO E FILTROS */}
         <div className="top-bar">
           <h2 className="titulo-secao">Facções Disponíveis</h2>
-          
+
           <div className="filtros-modernos">
             <div className="select-wrapper">
               <select>
@@ -103,18 +105,26 @@ const Home = () => {
           </div>
         </div>
 
-        {/* GRID DE CARDS - AGORA USANDO O COMPONENTE CARD */}
-        <div className="cards-grid">
-          {usuariosHome.map((user) => (
+        {/* --- GRID DE CARDS --- */}
+        <div className="cards-grid"> 
+          {/* Adicionei uma div wrapper se quiser estilizar o grid no CSS (display: grid/flex) */}
+          
+          {listaCostureiras.map((costureira) => (
             <Card
-              key={user.id}
-              id={user.id}
-              imagem={user.foto || user.imageUrl} //  a foto ou imageUrl
-              nome={user.nome}
-              cidade={user.cidade}
-              avaliacao={user.avaliacao}
-              servicos={[user.categoria]} // Transforma a categoria em array para servicos
-              premiumRequired={true} // Defina como true para testar a censura
+              key={costureira.id}
+              id={costureira.id}
+              nome={costureira.nome}
+              // CORREÇÃO 2: Verifique se sua API manda 'imageUrl' ou 'foto_url'
+              imagem={costureira.imageUrl || costureira.foto_url} 
+              cidade={costureira.cidade}
+              avaliacao={costureira.nota || "5.0"} // Valor padrão se não tiver nota
+              servicos={costureira.tags || ["Costura", "Acabamento"]} // Valor padrão
+              
+              // Define se precisa pagar pra ver
+              premiumRequired={true} 
+              
+              // Simula se o usuário já desbloqueou (Isso virá do backend depois)
+              jaDesbloqueou={costureira.desbloqueado_pelo_usuario || false}
             />
           ))}
         </div>

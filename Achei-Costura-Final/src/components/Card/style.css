@@ -116,28 +116,51 @@
 
 /* --- BOTÕES --- */
 
+.card-actions {
+  margin-top: 15px;
+}
+
+/* Deixa os dois botões na mesma linha */
+.btns-lado-a-lado {
+  display: flex;
+  gap: 10px; /* Espaço entre eles */
+  justify-content: space-between;
+}
+
+/* Estilo base do botão */
 .card-btn {
-  margin-top: 10px;
-  padding: 10px;
-  border: none; 
-  outline: none; 
-  border-radius: 6px;
-  background-color: #006D5B; 
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
   width: 100%;
-  -webkit-appearance: none;
-  appearance: none;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
 }
 
 .card-btn:hover {
-  background-color: #004d40;
+  opacity: 0.9;
 }
-.btn-locked {
-  cursor: default; 
+
+/* Cores dos Botões */
+.btn-assinar {
+  background-color: #006D5B; /* Verde */
+  color: white;
+  flex: 1; /* Ocupa metade */
 }
-.btn-locked:hover {
-  background-color: #006D5B; 
+
+.btn-moeda {
+  background-color: #ffae00; /* Roxo (Moeda) */
+  color: #1f2937;
+  flex: 1; /* Ocupa metade */
+}
+
+.btn-ver {
+  background-color: #1f2937; /* Escuro (Ver Perfil) */
+  color: white;
 }

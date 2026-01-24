@@ -98,7 +98,7 @@ export function AuthProvider({ children }) {
     isLoggedIn, 
     login, 
     logout, 
-    register, // Agora esta variável existe e não dará erro!
+    register, 
     user, 
     gastarMoeda, 
     isInitializing,

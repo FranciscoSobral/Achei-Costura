@@ -157,7 +157,6 @@
 .btn-moeda {
   background-color: #ffae00; /* Roxo (Moeda) */
   color: #1f2937;
-  flex: 1; /* Ocupa metade */
 }
 
 .btn-ver {

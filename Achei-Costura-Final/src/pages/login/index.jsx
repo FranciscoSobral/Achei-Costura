@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
-import { useAuth } from '../../context/AuthContext'; 
-import SpeechButton from '../../components/SpeechButton'; 
-import './style.css'; 
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import SpeechButton from '../../components/SpeechButton';
+import { useAuth } from '../../context/AuthContext';
+import './style.css';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -14,24 +14,14 @@ export function LoginPage() {
   const textoEmail = "Email";
   const textoSenha = "Senha";
 
-  // 3. Recuperamos as funções de lógica
-  const { login, finishTransition } = useAuth();
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // LOGICA DA CORTINA:
-    // 1. Inicia o login (a tela fica roxa) e espera o tempo definido
-    await login(); 
-
-    // 2. Navega para a home (o usuário não vê a troca pois a tela está roxa)
-    navigate('/');
-
-    // 3. Avisa para a cortina sair (revelando a home)
-    setTimeout(() => {
-        finishTransition();
-    }, 100);
+    const result = await login(email, password);
+    
+    if (result.success) {
+      navigate('/');
+    }
   };
 
   return (

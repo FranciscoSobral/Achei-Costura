@@ -1,49 +1,24 @@
-/* src/pages/cadastro/style.css - COLE ESTE NOVO CÓDIGO */
-
+/* Estilos para o formulário de cadastro */
 .cadastro-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 140px); /* Ajustado para dar espaço ao header/footer */
+    max-width: 600px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: var(--cor-fundo, #f4f6f8);
 }
 
 .cadastro-card {
-    background-color: var(--cor-branco, #ffffff);
-    padding: 25px 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 420px;
-    text-align: center;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
-
-.form-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.form-header h2 {
-    color: var(--cor-principal, #006D5B);
-    font-size: 1.8rem;
-    margin: 0; /* Remove margem padrão do h2 */
-}
-
-/* === ESTILO PARA AS NOVAS ABAS === */
 .cadastro-tabs {
     display: flex;
-    margin-bottom: 25px;
-    border-bottom: 2px solid #eee;
 }
-
 .tab-button {
     flex: 1; /* Faz os botões dividirem o espaço igualmente */
     padding: 12px 10px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 900;
     color: #666;
     background-color: transparent;
     border: none;
@@ -53,79 +28,265 @@
     margin-bottom: -2px; /* Alinha a borda de baixo com a borda do container */
 }
 
-.tab-button:hover {
-    color: var(--cor-detalhe, #00927A);
-}
-
-.tab-button.active {
-    color: var(--cor-principal, #006D5B);
-    border-bottom-color: var(--cor-principal, #006D5B);
-}
-/* === FIM DO ESTILO DAS ABAS === */
-
-
-.form-group {
-    margin-bottom: 18px;
-    text-align: left;
-}
-
-.form-label-container {
+.form-progress {
     display: flex;
     justify-content: space-between;
+    margin: 30px 0;
+    position: relative;
+}
+
+.form-progress::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 6px;
+    position: relative;
+    z-index: 2;
+    flex: 1;
 }
 
-.form-label-container label {
+.progress-step span {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+    transition: all 0.3s;
+}
+
+.progress-step.active span {
+    background: #4a90e2;
+    color: white;
+}
+
+.progress-step p {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    margin: 0;
+}
+
+.progress-step.active p {
+    color: #4a90e2;
     font-weight: 600;
-    color: #333;
-    font-size: 0.95rem;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
+.form-navigation {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
 }
 
-.form-group input:focus {
-    border-color: var(--cor-principal, #006D5B);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 109, 91, 0.2);
+.btn-voltar {
+    padding: 12px 24px;
+    background: #f5f5f5;
+    color: #666;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex: 1;
+}
+
+.btn-voltar:hover:not(:disabled) {
+    background: #e0e0e0;
 }
 
 .btn-avancar {
-    width: 100%;
-    padding: 14px;
-    background-color: var(--cor-principal, #006D5B);
-    color: var(--cor-branco, #ffffff);
+    padding: 12px 24px;
+    background: #4a90e2;
+    color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 1.1rem;
+    border-radius: 8px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
+    transition: all 0.3s;
+    flex: 2;
 }
 
-.btn-avancar:hover {
-    background-color: var(--cor-detalhe, #00927A);
+.btn-avancar:hover:not(:disabled) {
+    background: #357abd;
+    transform: translateY(-2px);
 }
 
-.login-redirect {
-    margin-top: 20px;
+.btn-avancar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Seções do formulário */
+.form-section {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.form-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
     color: #555;
-    font-size: 0.95rem;
+    font-size: 16px;
 }
 
-.login-redirect a {
-    color: var(--cor-principal, #006D5B);
+/* Upload de imagem */
+.profile-image-upload {
+    text-align: center;
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.upload-area:hover {
+    border-color: #4a90e2;
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.upload-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.upload-area small {
+    color: #666;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.file-input {
+    display: none;
+}
+
+.image-preview {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #4a90e2;
+}
+
+.remove-image-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Checkboxes */
+.checkbox-group {
+    margin: 15px 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.checkbox-label input {
+    width: auto;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.checkbox-label a {
+    color: #4a90e2;
     text-decoration: none;
-    font-weight: 600;
+    margin: 0 5px;
 }
 
-.login-redirect a:hover {
+.checkbox-label a:hover {
     text-decoration: underline;
+}
+
+/* Dicas e erros */
+.hint-text {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    font-size: 12px;
+}
+
+.error-input {
+    border-color: #dc3545 !important;
+}
+
+.error-text {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .cadastro-container {
+        padding: 10px;
+    }
+    
+    .cadastro-card {
+        padding: 20px;
+    }
+    
+    .form-navigation {
+        flex-direction: column;
+    }
+    
+    .btn-voltar,
+    .btn-avancar {
+        width: 100%;
+    }
+    
+    .progress-step p {
+        font-size: 10px;
+    }
 }

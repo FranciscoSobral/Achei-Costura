@@ -1,0 +1,249 @@
+.cadastro-step4-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.cadastro-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.section-desc {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    margin-top: -10px;
+}
+
+/* Barra de Progresso */
+.form-progress {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+    position: relative;
+}
+
+.form-progress::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.progress-step span {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+    border: 2px solid white;
+}
+
+/* Steps concluídos (passos anteriores) */
+.progress-step.completed span {
+    background: #004d40; /* Verde mais escuro para indicar passado */
+    color: white;
+}
+
+/* Step atual */
+.progress-step.active span {
+    background: #006D5B; /* Sua cor padrão */
+    color: white;
+    transform: scale(1.1);
+}
+
+.progress-step p {
+    font-size: 12px;
+    color: #999;
+}
+
+.progress-step.active p {
+    color: #006D5B;
+    font-weight: bold;
+}
+
+/* Área de Upload */
+.media-upload-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.upload-box {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: #fafafa;
+}
+
+.upload-box:hover {
+    border-color: #006D5B;
+    background-color: #f0fdfa;
+}
+
+.upload-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.upload-box p {
+    color: #555;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Grid de Previews */
+.previews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.preview-item {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* Aspect Ratio 1:1 */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.preview-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 68, 68, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+/* Vídeo */
+.video-preview-wrapper {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-player {
+    width: 100%;
+    max-height: 300px;
+    display: block;
+}
+
+.remove-video-btn {
+    width: 100%;
+    padding: 8px;
+    background: #ffebee;
+    color: #d32f2f;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Navegação */
+.form-navigation {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.btn-voltar {
+    flex: 1;
+    padding: 12px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #555;
+    font-weight: 600;
+}
+
+.btn-avancar {
+    flex: 2;
+    padding: 12px;
+    background: #006D5B; /* Sua cor */
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.btn-avancar:hover:not(:disabled) {
+    background: #005446;
+}
+
+.btn-avancar:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #ef9a9a;
+}

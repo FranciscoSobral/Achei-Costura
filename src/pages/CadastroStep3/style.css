@@ -1,0 +1,263 @@
+/* Container Principal - Centralizado */
+.cadastro-step3-container {
+    max-width: 700px;
+    margin: 40px auto; /* Centraliza na página */
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+.cadastro-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Garante que ocupa o container */
+    box-sizing: border-box;
+}
+
+/* Header */
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+/* Barra de Progresso */
+.form-progress {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+    position: relative;
+    padding: 0 10px; /* Pequeno respiro nas laterais */
+}
+
+.form-progress::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.progress-step span {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+    border: 2px solid white;
+    transition: all 0.3s;
+}
+
+/* Passos Completados (Passado) */
+.progress-step.completed span {
+    background: #004d40;
+    color: white;
+}
+
+/* Passo Atual (Ativo) */
+.progress-step.active span {
+    background: #006D5B; /* COR PADRÃO */
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(0, 109, 91, 0.15);
+}
+
+.progress-step p {
+    font-size: 12px;
+    color: #999;
+    margin: 0;
+    text-align: center;
+}
+
+.progress-step.active p {
+    color: #006D5B;
+    font-weight: 700;
+}
+
+/* Grupos do Formulário */
+.form-group {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #f5f5f5;
+    padding-bottom: 20px;
+}
+
+.form-group:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.form-label-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #444;
+    font-size: 1rem;
+}
+
+/* Inputs de Texto */
+.input-text {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.3s;
+    box-sizing: border-box; /* Garante que o padding não estoure o tamanho */
+    background-color: #fafafa;
+}
+
+.input-text:focus {
+    border-color: #006D5B; /* COR PADRÃO */
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 109, 91, 0.1);
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center; /* Alinha texto e bolinha verticalmente */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #fff;
+    font-size: 1rem;
+    color: #555;
+}
+
+.radio-option:hover {
+    background-color: #f0fdfa; /* Fundo levemente verde no hover */
+    border-color: #006D5B;
+}
+
+.radio-option.selected {
+    border-color: #006D5B; /* Borda Verde Padrão */
+    background-color: #e6f0ee; /* Fundo Verde Claro */
+    color: #006D5B;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 109, 91, 0.1);
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 12px;
+    width: 20px;
+    height: 20px;
+    accent-color: #006D5B;
+    cursor: pointer;
+    outline: none !important; /* Remove quadrado de foco no próprio input */
+    box-shadow: none !important;
+}
+
+/* Botões de Navegação */
+.form-navigation {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-voltar {
+    flex: 1;
+    padding: 14px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #666;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.btn-voltar:hover {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.btn-avancar {
+    flex: 2;
+    padding: 14px;
+    background: #006D5B; /* COR PADRÃO */
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 109, 91, 0.2);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-avancar:hover {
+    background: #005446;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 109, 91, 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .cadastro-step3-container {
+        padding: 10px;
+        margin: 20px auto;
+    }
+
+    .cadastro-card {
+        padding: 20px;
+    }
+
+    .form-navigation {
+        flex-direction: column-reverse; /* Botão de avançar em cima no celular */
+        gap: 10px;
+    }
+
+    .btn-voltar, .btn-avancar {
+        width: 100%;
+        padding: 12px;
+    }
+    
+    .progress-step p {
+        font-size: 10px;
+    }
+}

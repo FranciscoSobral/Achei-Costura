@@ -1,0 +1,441 @@
+/* Estilos para o formulário de cadastro */
+.cadastro-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cadastro-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header do formulário */
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Mensagem de erro global */
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #ef9a9a;
+}
+
+/* Abas de seleção (Facção/Empresa) */
+.cadastro-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 15px 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #888;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: -2px; /* Para a borda sobrepor a linha de base */
+}
+
+.tab-button:hover {
+    color: #006D5B;
+    background-color: #f8fbff;
+}
+
+/* Classe .active estava faltando no seu CSS original */
+.tab-button.active {
+    color: #006D5B;
+    border-bottom-color: #006D5B;
+    font-weight: 700;
+}
+
+/* Barra de progresso (Steps) */
+.form-progress {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+    position: relative;
+}
+
+.form-progress::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    cursor: pointer; /* Adicionado cursor pointer pois tem onClick no JSX */
+}
+
+.progress-step span {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+    transition: all 0.3s;
+    border: 2px solid white; /* Borda branca para separar da linha */
+}
+
+.progress-step.active span {
+    background: #4a90e2;
+    color: white;
+}
+
+.progress-step p {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    margin: 0;
+}
+
+.progress-step.active p {
+    color: #4a90e2;
+    font-weight: 600;
+}
+
+/* Grupos de formulário (Inputs) - Faltava estilização geral */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+/* Estilização dos Inputs e Selects */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #fff;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+/* Seções do formulário */
+.form-section {
+    margin: 25px 0;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #fdfdfd;
+}
+
+.form-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #555;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Upload de imagem */
+.profile-image-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+.upload-area:hover {
+    border-color: #4a90e2;
+    background-color: #f0f7ff;
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+.upload-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #aaa;
+}
+
+.upload-area small {
+    color: #888;
+    margin-top: 5px;
+    font-size: 12px;
+    display: block;
+}
+
+.file-input {
+    display: none;
+}
+
+.image-preview {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 10px auto;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #4a90e2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.remove-image-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.remove-image-btn:hover {
+    background: #cc0000;
+}
+
+/* Checkboxes */
+.checkbox-group {
+    margin: 20px 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start; /* Alinha no topo caso o texto seja longo */
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+}
+
+.checkbox-label input {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    margin-top: 2px; /* Ajuste fino para alinhar com o texto */
+    cursor: pointer;
+    accent-color: #4a90e2;
+}
+
+.checkbox-label a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 0 3px;
+}
+
+.checkbox-label a:hover {
+    text-decoration: underline;
+}
+
+/* Dicas e erros */
+.hint-text {
+    display: block;
+    margin-top: 5px;
+    color: #888;
+    font-size: 12px;
+}
+
+.error-input {
+    border-color: #dc3545 !important;
+    background-color: #fff8f8 !important;
+}
+
+.error-text {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 6px;
+    display: block;
+    font-weight: 500;
+}
+
+/* Navegação (Botões) */
+.form-navigation {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-voltar {
+    padding: 12px 24px;
+    background: #f5f5f5;
+    color: #666;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex: 1;
+}
+
+.btn-voltar:hover:not(:disabled) {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.btn-avancar {
+    padding: 12px 24px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex: 2;
+    box-shadow: 0 4px 6px rgba(74, 144, 226, 0.2);
+}
+
+.btn-avancar:hover:not(:disabled) {
+    background: #357abd;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(74, 144, 226, 0.3);
+}
+
+.btn-avancar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #a0c4e8;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Link de Login (Rodapé do form) */
+.login-redirect {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666;
+}
+
+.login-redirect a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.login-redirect a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .cadastro-container {
+        padding: 10px;
+        margin: 10px auto;
+    }
+    
+    .cadastro-card {
+        padding: 20px 15px;
+    }
+    
+    .form-navigation {
+        flex-direction: column; /* Botões empilhados no mobile */
+    }
+    
+    .btn-voltar,
+    .btn-avancar {
+        width: 100%;
+        padding: 14px;
+    }
+    
+    .progress-step p {
+        font-size: 10px;
+        max-width: 70px; /* Evita quebra de linha feia */
+        line-height: 1.2;
+    }
+    
+    .form-header h2 {
+        font-size: 1.5rem;
+    }
+}

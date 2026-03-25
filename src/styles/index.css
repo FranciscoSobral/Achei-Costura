@@ -1,0 +1,112 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* Slick Carousel Custom Styles */
+.slick-slider {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.slick-list {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.slick-track {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.slick-slide {
+  display: none;
+  float: left;
+  height: 100%;
+  min-height: 1px;
+}
+
+.slick-slide > div {
+  height: 100%;
+}
+
+.slick-initialized .slick-slide {
+  display: block;
+}
+
+.slick-dots {
+  display: flex !important;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 0;
+  list-style: none;
+}
+
+.slick-dots li {
+  width: 8px;
+  height: 8px;
+}
+
+.slick-dots li button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: #d1d5db;
+  font-size: 0;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.slick-dots li.slick-active button {
+  background-color: #059669;
+  width: 24px;
+  border-radius: 4px;
+}
+
+.slick-dots li button:hover {
+  background-color: #9ca3af;
+}
+
+/* Speech Button Styles */
+.speech-button {
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #059669;
+  transition: all 0.3s;
+  border-radius: 4px;
+}
+
+.speech-button:hover {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.speech-button.speaking {
+  background: #10b981;
+  color: white;
+}
+
+/* User Type Selector */
+.user-type-selector {
+  display: flex;
+  gap: 16px;
+}
+
+.type-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

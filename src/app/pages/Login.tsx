@@ -3,11 +3,12 @@ import { useNavigate, Link } from 'react-router';
 import { useAuth } from '../context/AuthContext';
 import { login } from '../services/api';
 import { Button } from '../components/ui/button';
+import logo from '@/assets/logo.png';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Alert, AlertDescription } from '../components/ui/alert';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Eye, EyeOff, Loader2 } from 'lucide-react'; // Adicionei apenas os ícones novos aqui
 import { toast } from 'sonner';
 
 export const Login = () => {
@@ -18,6 +19,7 @@ export const Login = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,26 +45,33 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center py-12 px-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1 text-center">
-          <div className="mx-auto h-12 w-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 mb-4"></div>
-          <CardTitle className="text-2xl">Entrar na CosturaJobs</CardTitle>
-          <CardDescription>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-md shadow-xl shadow-green-900/5 border-white/50">
+        <CardHeader className="space-y-2 text-center pb-6">
+          <img
+            src={logo}
+            alt="Logo Achei Costura"
+            className="mx-auto h-20 w-20 p-1.5 rounded-xl  mb-2 object-contain"
+          />
+          <CardTitle className="text-2xl font-bold tracking-tight text-gray-900">
+            Entrar no Achei Costura
+          </CardTitle>
+          <CardDescription className="text-gray-500">
             Entre com suas credenciais para acessar sua conta
           </CardDescription>
         </CardHeader>
+        
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <Alert variant="destructive">
+              <Alert variant="destructive" className="bg-red-50 text-red-600 border-red-200">
                 <AlertCircle className="h-4 w-4" />
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email">E-mail</Label>
+              <Label htmlFor="email" className="text-sm font-medium text-gray-700">E-mail</Label>
               <Input
                 id="email"
                 type="email"
@@ -70,28 +79,59 @@ export const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading}
+                className="focus-visible:ring-[#006D5B] transition-shadow"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Senha</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={loading}
-              />
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password" className="text-sm font-medium text-gray-700">Senha</Label>
+                <Link to="/recuperar-senha" className="text-sm text-[#006D5B] hover:text-[#005a4b] hover:underline transition-colors">
+                  Esqueceu a senha?
+                </Link>
+              </div>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={loading}
+                  className="pr-10 focus-visible:ring-[#006D5B] transition-shadow"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Entrando...' : 'Entrar'}
+            <Button 
+              type="submit" 
+              className="bg-[#006D5B] hover:bg-[#005a4b] w-full text-white font-medium py-2.5 transition-colors shadow-md shadow-[#006D5B]/20" 
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Entrando...
+                </>
+              ) : (
+                'Entrar'
+              )}
             </Button>
 
-            <div className="text-center text-sm">
+            <div className="text-center text-sm pt-2">
               <span className="text-gray-600">Não tem uma conta? </span>
-              <Link to="/register" className="text-green-600 hover:underline">
+              <Link to="/register" className="text-[#006D5B] hover:text-[#005a4b] font-medium hover:underline transition-colors">
                 Cadastre-se
               </Link>
             </div>

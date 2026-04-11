@@ -110,13 +110,13 @@ const Step1CriarConta: React.FC = () => {
           }}
         >
           <span className="text-3xl mb-2 block">👕</span>
-          <span className="font-medium">Sou Costureira</span>
+          <span className="font-medium">Sou Prestador de Serviços</span>
         </button>
         <button
           type="button"
           className={`type-button ${
             userType === 'EMPRESA'
-              ? 'bg-green-600 text-white border-green-600'
+              ? 'bg-[#006D5B]-600 text-white border-green-600'
               : 'bg-white text-gray-700 border-gray-300'
           } border-2 rounded-lg px-6 py-4 flex-1 transition-all hover:border-green-600`}
           onClick={() => {
@@ -125,7 +125,7 @@ const Step1CriarConta: React.FC = () => {
           }}
         >
           <span className="text-3xl mb-2 block">🏢</span>
-          <span className="font-medium">Sou Empresa</span>
+          <span className="font-medium">Procuro Serviços</span>
         </button>
       </div>
       {formErrors.userType && (
@@ -231,7 +231,7 @@ const Step1CriarConta: React.FC = () => {
 
         <button
           type="submit"
-          className="btn-next w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
+          className="btn-next w-full bg-[#006D5B] hover:bg-[#005a4b] text-white py-3 rounded-lg font-medium transition-colors shadow-md shadow-[#006D5B]/20"
         >
           Criar Conta e Continuar
         </button>

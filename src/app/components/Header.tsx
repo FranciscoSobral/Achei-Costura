@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../context/AuthContext';
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import logo from '@/assets/logo.png';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import { Coins, LogOut, User, Menu } from 'lucide-react';
+import { Coins, LogOut, User, Menu, X } from 'lucide-react';
 
 export const Header = () => {
   const { user, logout } = useAuth();
@@ -24,47 +25,39 @@ export const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
+      <div className="container mx-auto px-4 py-3 sm:py-4">
+        <div className="flex items-center justify-between gap-4">
+
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600"></div>
-            <span className="text-xl font-semibold">AcheiCostura</span>
+          <Link to="/" className="flex items-center gap-2 shrink-0 group">
+            <img
+              src={logo}
+              alt="Logo Achei Costura"
+              className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg object-contain transition-transform group-hover:scale-105"
+            />
+            <span className="text-xl sm:text-2xl font-semibold tracking-tight text-gray-900">
+              AcheiCostura
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-gray-700 hover:text-green-600 transition-colors">
-              Serviços
-            </Link>
-            <Link to="/my-applications" className="text-gray-700 hover:text-green-600 transition-colors">
-              Minhas Candidaturas
-            </Link>
-            <Link to="/empresa/dashboard" className="text-green-600 font-medium hover:text-green-800 transition-colors">
-              Minhas Vagas
-            </Link>
-            <Link to="/empresa/buscar" className="text-green-600 font-medium hover:text-green-800 transition-colors">
-              Encontre Costureiros
-            </Link>
-            <Link to="/planos" className="text-gray-700 hover:text-green-600 transition-colors">
-              Planos
-            </Link>
-            <Link to="/sobre-nos" className="text-gray-700 hover:text-green-600 transition-colors">
-              Sobre Nós
-            </Link>
-            <Link to="/contato" className="text-gray-700 hover:text-green-600 transition-colors">
-              Contato
-            </Link>
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 flex-1 justify-center">
+            <Link to="/" className="text-sm xl:text-base font-medium text-gray-700 hover:text-[#006D5B] transition-colors">Serviços</Link>
+            <Link to="/my-applications" className="text-sm xl:text-base font-medium text-gray-700 hover:text-[#006D5B] transition-colors">Minhas Candidaturas</Link>
+            <Link to="/empresa/dashboard" className="text-sm xl:text-base font-medium text-gray-700 hover:text-[#006D5B] transition-colors">Minhas Vagas</Link>
+            <Link to="/empresa/buscar" className="text-sm xl:text-base font-medium text-gray-700 hover:text-[#006D5B] transition-colors">Encontre Costureiros</Link>
+            <Link to="/planos" className="text-gray-700 hover:text-[#006D5B] font-medium transition-colors">Planos</Link>
+            <Link to="/sobre-nos" className="text-gray-700 hover:text-[#006D5B] font-medium transition-colors">Sobre Nós</Link>
+            <Link to="/contato" className="text-gray-700 hover:text-[#006D5B] font-medium transition-colors">Contato</Link>
           </nav>
 
-
-          {/* User Section */}
-          <div className="flex items-center gap-4">
+          {/* User Section & Mobile Toggle */}
+          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
             {user ? (
               <>
                 {/* Coins Display */}
-                <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-amber-50 rounded-full border border-amber-200">
+                <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-full">
                   <Coins className="w-4 h-4 text-amber-600" />
                   <span className="text-sm font-medium text-amber-900">{user.coins}</span>
                 </div>
@@ -72,27 +65,35 @@ export const Header = () => {
                 {/* User Menu */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                      <Avatar className="h-9 w-9">
-                        <AvatarImage src={user.avatar} alt={user.name || 'Usuário'} />
-                        <AvatarFallback>{user.name?.charAt(0) || 'U'}</AvatarFallback>
+                    <button className="flex items-center gap-2 hover:opacity-80 transition-opacity outline-none">
+                      <Avatar className="h-10 w-10 border border-gray-200">
+                        <AvatarImage src={user.avatar} alt={user.name || 'Usuário'} className="object-cover" />
+                        <AvatarFallback className="bg-gray-100 text-gray-700 font-medium">
+                          {user.name?.charAt(0) || 'U'}
+                        </AvatarFallback>
                       </Avatar>
-                      <span className="hidden md:block text-sm font-medium">{user.name}</span>
+                      <span className="hidden md:block text-sm font-medium text-gray-800 max-w-[100px] truncate">
+                        {user.name}
+                      </span>
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
+                  <DropdownMenuContent align="end" className="w-56 mt-2">
+                    <DropdownMenuLabel className="font-medium text-gray-900">Minha Conta</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => navigate('/perfil')}>
+
+                    <DropdownMenuItem onClick={() => navigate('/perfil')} className="cursor-pointer">
                       <User className="mr-2 h-4 w-4" />
                       Perfil
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="sm:hidden">
+
+                    <DropdownMenuItem className="sm:hidden cursor-default text-amber-600">
                       <Coins className="mr-2 h-4 w-4" />
                       {user.coins} moedas
                     </DropdownMenuItem>
+
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+
+                    <DropdownMenuItem onClick={handleLogout} className="text-red-600 cursor-pointer">
                       <LogOut className="mr-2 h-4 w-4" />
                       Sair
                     </DropdownMenuItem>
@@ -100,57 +101,81 @@ export const Header = () => {
                 </DropdownMenu>
               </>
             ) : (
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" onClick={() => navigate('/login')}>
+              // Botões Animados para Desktop
+              <div className="hidden sm:flex items-center gap-2">
+                <Button
+                  className="bg-transparent text-[#006D5B] font-medium transition-all duration-300 hover:bg-[#006D5B] hover:text-white hover:scale-105 active:scale-95 active:bg-[#006D5B] active:text-white"
+                  variant="ghost"
+                  onClick={() => navigate('/login')}
+                >
                   Entrar
                 </Button>
-                <Button onClick={() => navigate('/register')}>
+                <Button
+                  onClick={() => navigate('/register')}
+                  className="bg-[#006D5B] text-white font-medium shadow-sm transition-all duration-300 hover:bg-[#005a4b] hover:shadow-md hover:scale-105 active:scale-95 active:bg-[#006D5B]"
+                >
                   Cadastrar
                 </Button>
               </div>
             )}
 
             {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden p-2"
+            <button
+              className="lg:hidden p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
             >
-              <Menu className="w-6 h-6" />
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
-          <nav className="md:hidden mt-4 pt-4 border-t flex flex-col gap-3">
-            <Link 
-              to="/empresa/dashboard" 
-              className="text-green-600 font-medium hover:text-green-800 transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Sou Empresa (Painel)
-            </Link>
-            <Link 
-              to="/empresa/buscar" 
-              className="text-green-600 font-medium hover:text-green-800 transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Sou Empresa (encontre costureiros)
-            </Link>
-            <Link 
-              to="/" 
-              className="text-gray-700 hover:text-green-600 transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Serviços
-            </Link>
-            <Link 
-              to="/my-applications" 
-              className="text-gray-700 hover:text-green-600 transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Minhas Candidaturas
-            </Link>
+          <nav className="lg:hidden mt-4 pt-2 border-t border-gray-100 flex flex-col gap-1 pb-4">
+            {[
+              { to: "/", label: "Serviços" },
+              { to: "/my-applications", label: "Minhas Candidaturas" },
+              { to: "/empresa/dashboard", label: "Minhas Vagas" },
+              { to: "/empresa/buscar", label: "Encontre Costureiros" },
+              { to: "/planos", label: "Planos" },
+              { to: "/sobre-nos", label: "Sobre Nós" },
+              { to: "/contato", label: "Contato" }
+            ].map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="text-gray-700 font-medium hover:text-[#006D5B] hover:bg-[#006D5B]/5 transition-colors py-3 px-3 rounded-md"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            {/* Botões Animados dentro do menu para mobile */}
+            {!user && (
+              <div className="flex flex-col gap-2 mt-2 px-3 sm:hidden">
+                <Button
+                  className="w-full bg-transparent border border-[#006D5B] text-[#006D5B] font-medium transition-all duration-300 hover:bg-[#006D5B] hover:text-white active:bg-[#006D5B] active:text-white active:scale-[0.98]"
+                  variant="outline"
+                  onClick={() => {
+                    navigate('/login');
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  Fazer Login
+                </Button>
+                <Button
+                  className="w-full bg-[#006D5B] text-white font-medium shadow-sm transition-all duration-300 hover:bg-[#005a4b] active:bg-[#006D5B] active:scale-[0.98]"
+                  onClick={() => {
+                    navigate('/register');
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  Cadastrar
+                </Button>
+              </div>
+            )}
           </nav>
         )}
       </div>

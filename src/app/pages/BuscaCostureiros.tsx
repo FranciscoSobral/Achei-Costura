@@ -570,6 +570,14 @@ export const BuscaCostureiros = () => {
                           )}
                         </div>
 
+                        <Button
+                              variant="outline"
+                              className="w-full border-[#006D5B] text-[#006D5B] hover:bg-[#F2F9F7] flex gap-2"
+                              onClick={() => navigate(`/costureiro/${c.id}`)}
+                            >
+                              Ver perfil completo
+                            </Button>
+
                         <div className="mt-auto pt-4 border-t border-gray-100">
                           {isLocked ? (
                             <Button

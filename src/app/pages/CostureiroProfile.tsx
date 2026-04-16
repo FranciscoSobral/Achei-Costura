@@ -212,19 +212,17 @@ export const CostureiroProfile = () => {
           setProfile((prev) => (prev ? { ...prev, imageUrl: imageData } : prev));
         }
 
-        if (mapped.unlocked) {
-          setLoadingOtherImages(true);
-          try {
-            const images = await fetchOtherImages(mapped.id);
-            if (active) setOtherImages(images);
-          } catch (err) {
-            console.error('Erro ao carregar outras imagens:', err);
-          } finally {
-            if (active) setLoadingOtherImages(false);
-          }
-        } else {
-          setOtherImages([]);
+        // AGORA BUSCA AS FOTOS DA GALERIA SEMPRE
+        setLoadingOtherImages(true);
+        try {
+          const images = await fetchOtherImages(mapped.id);
+          if (active) setOtherImages(images);
+        } catch (err) {
+          console.error('Erro ao carregar outras imagens:', err);
+        } finally {
+          if (active) setLoadingOtherImages(false);
         }
+        
       } catch (error: any) {
         if (active) {
           setProfile(null);
@@ -367,8 +365,11 @@ export const CostureiroProfile = () => {
               </div>
 
               <div className="px-6 md:px-12 pb-8 relative">
-                <div className="flex flex-col md:flex-row items-center md:items-end -mt-16 gap-6">
-                  <div className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white bg-white overflow-hidden shadow-xl">
+                {/* 1. TIREI O -mt-16 DAQUI */}
+                <div className="flex flex-col md:flex-row items-center md:items-end gap-6">
+                  
+                  {/* 2. COLOQUEI O -mt-16 APENAS NA FOTO */}
+                  <div className="-mt-16 w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white bg-white overflow-hidden shadow-xl flex-shrink-0 z-10">
                     <img
                       src={profile.imageUrl}
                       alt={profile.name}
@@ -379,6 +380,7 @@ export const CostureiroProfile = () => {
                     />
                   </div>
 
+                  {/* 3. O TEXTO AGORA FICA LIVRE PARA DESCER */}
                   <div className="flex-1 text-center md:text-left">
                     <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-1">
                       <h1 className="text-3xl font-bold text-gray-900">
@@ -583,11 +585,7 @@ export const CostureiroProfile = () => {
                     )}
                   </div>
 
-                  {isLocked ? (
-                    <div className="p-4 rounded-2xl bg-[#F0FAF8] border border-dashed border-[#006D5B]/30 text-sm text-gray-600 text-center">
-                      Desbloqueie o perfil para visualizar a galeria completa de fotos do profissional.
-                    </div>
-                  ) : otherImages.length === 0 ? (
+                  {otherImages.length === 0 ? (
                     <p className="text-gray-500 text-sm text-center">
                       Nenhuma imagem adicional encontrada para este profissional.
                     </p>

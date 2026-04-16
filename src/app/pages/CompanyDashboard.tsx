@@ -244,7 +244,7 @@ export const CompanyDashboard = () => {
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className=" grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2 space-y-2">
               <Label htmlFor="job-title">Titulo</Label>
               <Input
@@ -400,7 +400,7 @@ export const CompanyDashboard = () => {
           <h1 className="text-3xl font-bold text-gray-900">Painel da Empresa</h1>
           <p className="text-gray-600 mt-1">Gerencie suas vagas e visualize candidatos.</p>
         </div>
-        <Button className="flex items-center gap-2" onClick={() => setCreateDialogOpen(true)}>
+        <Button className="bg-[#006D5B] hover:bg-[#005a4b] flex items-center gap-2" onClick={() => setCreateDialogOpen(true)}>
           <PlusCircle className="w-5 h-5" />
           Publicar Nova Vaga
         </Button>

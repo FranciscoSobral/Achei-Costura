@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../context/AuthContext';
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import logo from '@/assets/logo.png';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,43 +25,42 @@ export const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b-2 border-gray-100 bg-white shadow-sm">
+      <div className="container mx-auto px-4 py-3 sm:py-4">
+        <div className="flex items-center justify-between gap-2">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600"></div>
-            <span className="text-xl font-semibold">AcheiCostura</span>
+          <Link to="/" className="flex items-center gap-2 shrink-0">
+            <img src={logo} alt="Logo Achei Costura" className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg bg-gradient-to-br 500 600 object-contain" />
+            <span className="text-lg sm:text-xl font-semibold tracking-tight">AcheiCostura</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-gray-700 hover:text-green-600 transition-colors">
+          {/* Desktop Navigation - Alterado de md para lg para evitar quebra em tablets */}
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
+            <Link to="/" className="text-gray-700 hover:text-[#006D5B] font-medium transition-colors">
               Serviços
             </Link>
-            <Link to="/my-applications" className="text-gray-700 hover:text-green-600 transition-colors">
+            <Link to="/my-applications" className="text-gray-700 hover:text-[#006D5B] font-medium transition-colors">
               Minhas Candidaturas
             </Link>
-            <Link to="/empresa/dashboard" className="text-green-600 font-medium hover:text-green-800 transition-colors">
+            <Link to="/empresa/dashboard" className="text-gray-700 hover:text-[#006D5B] font-medium transition-colors">
               Minhas Vagas
             </Link>
-            <Link to="/empresa/buscar" className="text-green-600 font-medium hover:text-green-800 transition-colors">
+            <Link to="/empresa/buscar" className="text-gray-700 hover:text-[#006D5B] font-medium transition-colors">
               Encontre Costureiros
             </Link>
-            <Link to="/planos" className="text-gray-700 hover:text-green-600 transition-colors">
+            <Link to="/planos" className="text-gray-700 hover:text-[#006D5B] font-medium transition-colors">
               Planos
             </Link>
-            <Link to="/sobre-nos" className="text-gray-700 hover:text-green-600 transition-colors">
+            <Link to="/sobre-nos" className="text-gray-700 hover:text-[#006D5B] font-medium transition-colors">
               Sobre Nós
             </Link>
-            <Link to="/contato" className="text-gray-700 hover:text-green-600 transition-colors">
+            <Link to="/contato" className="text-gray-700 hover:text-[#006D5B] font-medium transition-colors">
               Contato
             </Link>
           </nav>
 
-
           {/* User Section */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
             {user ? (
               <>
                 {/* Coins Display */}
@@ -72,27 +72,29 @@ export const Header = () => {
                 {/* User Menu */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                      <Avatar className="h-9 w-9">
+                    <button className="flex items-center gap-2 hover:opacity-80 transition-opacity outline-none">
+                      <Avatar className="h-9 w-9 border border-gray-200">
                         <AvatarImage src={user.avatar} alt={user.name || 'Usuário'} />
-                        <AvatarFallback>{user.name?.charAt(0) || 'U'}</AvatarFallback>
+                        <AvatarFallback className="bg-gray-100 text-gray-700 font-medium">
+                          {user.name?.charAt(0) || 'U'}
+                        </AvatarFallback>
                       </Avatar>
-                      <span className="hidden md:block text-sm font-medium">{user.name}</span>
+                      <span className="hidden md:block text-sm font-medium text-gray-800">{user.name}</span>
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuContent align="end" className="w-56 border-2 border-gray-100 shadow-lg">
                     <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => navigate('/perfil')}>
+                    <DropdownMenuItem onClick={() => navigate('/perfil')} className="cursor-pointer">
                       <User className="mr-2 h-4 w-4" />
                       Perfil
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="sm:hidden">
+                    <DropdownMenuItem className="sm:hidden cursor-default">
                       <Coins className="mr-2 h-4 w-4" />
                       {user.coins} moedas
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                    <DropdownMenuItem onClick={handleLogout} className="text-red-600 cursor-pointer">
                       <LogOut className="mr-2 h-4 w-4" />
                       Sair
                     </DropdownMenuItem>
@@ -101,56 +103,54 @@ export const Header = () => {
               </>
             ) : (
               <div className="flex items-center gap-2">
-                <Button variant="ghost" onClick={() => navigate('/login')}>
+                <Button 
+                  className="bg-transparent hover:bg-gray-100 text-[#006D5B] px-2 sm:px-4 text-sm sm:text-base border-2 border-transparent" 
+                  variant="ghost" 
+                  onClick={() => navigate('/login')}
+                >
                   Entrar
                 </Button>
-                <Button onClick={() => navigate('/register')}>
+                <Button 
+                  onClick={() => navigate('/register')} 
+                  className="bg-[#006D5B] hover:bg-[#005749] text-white px-3 sm:px-4 text-sm sm:text-base border-2 border-[#006D5B]"
+                >
                   Cadastrar
                 </Button>
               </div>
             )}
 
             {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden p-2"
+            <button
+              className="lg:hidden p-2 -mr-2 text-gray-700 hover:text-gray-900 focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
             >
               <Menu className="w-6 h-6" />
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Expandido com todos os links e design mais limpo */}
         {mobileMenuOpen && (
-          <nav className="md:hidden mt-4 pt-4 border-t flex flex-col gap-3">
-            <Link 
-              to="/empresa/dashboard" 
-              className="text-green-600 font-medium hover:text-green-800 transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Sou Empresa (Painel)
-            </Link>
-            <Link 
-              to="/empresa/buscar" 
-              className="text-green-600 font-medium hover:text-green-800 transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Sou Empresa (encontre costureiros)
-            </Link>
-            <Link 
-              to="/" 
-              className="text-gray-700 hover:text-green-600 transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Serviços
-            </Link>
-            <Link 
-              to="/my-applications" 
-              className="text-gray-700 hover:text-green-600 transition-colors py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Minhas Candidaturas
-            </Link>
+          <nav className="lg:hidden mt-4 pt-2 border-t-2 border-gray-100 flex flex-col">
+            {[
+              { to: "/", label: "Serviços" },
+              { to: "/my-applications", label: "Minhas Candidaturas" },
+              { to: "/empresa/dashboard", label: "Minhas Vagas" },
+              { to: "/empresa/buscar", label: "Encontre Costureiros" },
+              { to: "/planos", label: "Planos" },
+              { to: "/sobre-nos", label: "Sobre Nós" },
+              { to: "/contato", label: "Contato" }
+            ].map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="text-gray-700 font-medium hover:text-[#006D5B] hover:bg-gray-50 transition-colors py-3 px-2 border-b border-gray-50 last:border-0"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
         )}
       </div>

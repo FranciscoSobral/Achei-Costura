@@ -101,9 +101,9 @@ const Step1CriarConta: React.FC = () => {
           type="button"
           className={`type-button ${
             userType === 'COUTURIER'
-              ? 'bg-green-600 text-white border-green-600'
+              ? 'bg-[#006D5B] text-white border-[#006D5B] shadow-md shadow-[#006D5B]/20'
               : 'bg-white text-gray-700 border-gray-300'
-          } border-2 rounded-lg px-6 py-4 flex-1 transition-all hover:border-green-600`}
+          } border-2 rounded-lg px-6 py-4 flex-1 transition-all hover:border-[#006D5B]`}
           onClick={() => {
             setUserType('COUTURIER');
             setFormErrors((prev) => ({ ...prev, userType: '' }));
@@ -118,7 +118,7 @@ const Step1CriarConta: React.FC = () => {
             userType === 'EMPRESA'
               ? 'bg-[#006D5B]-600 text-white border-green-600'
               : 'bg-white text-gray-700 border-gray-300'
-          } border-2 rounded-lg px-6 py-4 flex-1 transition-all hover:border-green-600`}
+          } border-2 rounded-lg px-6 py-4 flex-1 transition-all hover:border-[#006D5B]`}
           onClick={() => {
             setUserType('EMPRESA');
             setFormErrors((prev) => ({ ...prev, userType: '' }));
@@ -148,7 +148,7 @@ const Step1CriarConta: React.FC = () => {
             name="name"
             value={step1Data.name}
             onChange={handleChange}
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#006D5B] focus:border-[#006D5B] transition-shadow ${
               formErrors.name ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Digite seu nome completo"
@@ -171,7 +171,7 @@ const Step1CriarConta: React.FC = () => {
             name="email"
             value={step1Data.email}
             onChange={handleChange}
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#006D5B] focus:border-[#006D5B] transition-shadow ${
               formErrors.email ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="seu@email.com"
@@ -194,7 +194,7 @@ const Step1CriarConta: React.FC = () => {
             name="password"
             value={step1Data.password}
             onChange={handleChange}
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#006D5B] focus:border-[#006D5B] transition-shadow ${
               formErrors.password ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Mínimo 8 caracteres"
@@ -217,7 +217,7 @@ const Step1CriarConta: React.FC = () => {
             name="confirmPassword"
             value={step1Data.confirmPassword}
             onChange={handleChange}
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#006D5B] focus:border-[#006D5B] transition-shadow ${
               formErrors.confirmPassword ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Digite a senha novamente"

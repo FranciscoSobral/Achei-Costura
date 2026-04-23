@@ -1,4 +1,9 @@
 /* Container Geral */
+
+*{
+  font-family: "Quicksand", sans-serif;
+}
+
 .sobre-container {
   font-family: 'Poppins', sans-serif;
   color: #333;

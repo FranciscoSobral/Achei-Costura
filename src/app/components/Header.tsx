@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import { Coins, LogOut, User, Menu } from 'lucide-react';
+import { Coins, LogOut, User, Menu, X } from 'lucide-react';
 
 export const Header = () => {
   const { user, logout } = useAuth();
@@ -64,7 +64,7 @@ export const Header = () => {
             {user ? (
               <>
                 {/* Coins Display */}
-                <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-amber-50 rounded-full border border-amber-200">
+                <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-full">
                   <Coins className="w-4 h-4 text-amber-600" />
                   <span className="text-sm font-medium text-amber-900">{user.coins}</span>
                 </div>
@@ -93,6 +93,7 @@ export const Header = () => {
                       <Coins className="mr-2 h-4 w-4" />
                       {user.coins} moedas
                     </DropdownMenuItem>
+
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleLogout} className="text-red-600 cursor-pointer">
                       <LogOut className="mr-2 h-4 w-4" />
@@ -125,7 +126,7 @@ export const Header = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
-              <Menu className="w-6 h-6" />
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
